@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Licensy</string>
+
+    <string name="default_title">Licenses</string>
+    <string name="close">Close</string>
 </resources>
