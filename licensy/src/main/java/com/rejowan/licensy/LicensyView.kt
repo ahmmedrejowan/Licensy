@@ -20,7 +20,7 @@ class LicensyView @JvmOverloads constructor(
     var lvSecondaryColor = Color.parseColor("#444444")
     var lvLinkColor = Color.parseColor("#1976D2")
 
-    var lvTitleTextSize = 45f
+    var lvTitleTextSize = 0f
 
     var lvBackgroundColor = Color.WHITE
     var lvBackgroundColorExpand = Color.parseColor("#f8f8f8")
@@ -159,7 +159,9 @@ class LicensyView @JvmOverloads constructor(
             holder.binding.divider2.setBackgroundColor(lvDividerColor)
             holder.binding.divider3.setBackgroundColor(lvDividerColor)
 
-            holder.binding.tvRepoName.textSize = lvTitleTextSize / resources.displayMetrics.density
+            if (lvTitleTextSize != 0f) {
+                holder.binding.tvRepoName.textSize = lvTitleTextSize / resources.displayMetrics.density
+            }
 
             holder.binding.ivOpen.setImageResource(lvOpenImage)
             holder.binding.ivOpen.setColorFilter(imageTint)

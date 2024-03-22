@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Licensy"
         tools:targetApi="31">
         <activity
+            android:name=".Credit"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
