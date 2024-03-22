@@ -17,6 +17,7 @@
 
         <!--Image-->
         <attr name="lv_open_image" format="reference" />
+        <attr name="lv_image_tint" format="color" />
 
         <!--Divider-->
         <attr name="lv_divider_color" format="color" />

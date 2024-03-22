@@ -20,12 +20,13 @@ class LicensyView @JvmOverloads constructor(
     var lvSecondaryColor = Color.parseColor("#444444")
     var lvLinkColor = Color.parseColor("#1976D2")
 
-    var lvTitleTextSize = 15f
+    var lvTitleTextSize = 45f
 
     var lvBackgroundColor = Color.WHITE
     var lvBackgroundColorExpand = Color.parseColor("#f8f8f8")
 
     var lvOpenImage = R.drawable.ic_licensy_open
+    var imageTint = Color.parseColor("#444444")
 
     var lvDividerColor = Color.parseColor("#e0e0e0")
 
@@ -65,6 +66,7 @@ class LicensyView @JvmOverloads constructor(
                 R.styleable.LicensyView_lv_background_color_expand, lvBackgroundColorExpand
             )
             lvOpenImage = typedArray.getResourceId(R.styleable.LicensyView_lv_open_image, lvOpenImage)
+            imageTint = typedArray.getColor(R.styleable.LicensyView_lv_image_tint, imageTint)
 
             lvDividerColor =
                 typedArray.getColor(R.styleable.LicensyView_lv_divider_color, lvDividerColor)
@@ -138,13 +140,13 @@ class LicensyView @JvmOverloads constructor(
             holder.binding.tvAuthorName.setTextColor(lvPrimaryColor)
             holder.binding.tvLicenseName.setTextColor(lvPrimaryColor)
             holder.binding.tvLicenseFullName.setTextColor(lvPrimaryColor)
-            holder.binding.tvLicenseDescription.setTextColor(lvPrimaryColor)
 
             holder.binding.tvCreatedBy.setTextColor(lvSecondaryColor)
             holder.binding.tvLicensedUnder.setTextColor(lvSecondaryColor)
             holder.binding.copyright.setTextColor(lvSecondaryColor)
             holder.binding.tvLicenseFull.setTextColor(lvSecondaryColor)
             holder.binding.tvRepositoryLink.setTextColor(lvSecondaryColor)
+            holder.binding.tvLicenseDescription.setTextColor(lvSecondaryColor)
 
             holder.binding.tvLicenseUrl.setTextColor(lvLinkColor)
             holder.binding.tvRepoUrl.setTextColor(lvLinkColor)
@@ -157,9 +159,10 @@ class LicensyView @JvmOverloads constructor(
             holder.binding.divider2.setBackgroundColor(lvDividerColor)
             holder.binding.divider3.setBackgroundColor(lvDividerColor)
 
-            holder.binding.tvRepoName.textSize = lvTitleTextSize
+            holder.binding.tvRepoName.textSize = lvTitleTextSize / resources.displayMetrics.density
 
             holder.binding.ivOpen.setImageResource(lvOpenImage)
+            holder.binding.ivOpen.setColorFilter(imageTint)
 
 
         }
@@ -178,32 +181,5 @@ class LicensyView @JvmOverloads constructor(
             ViewHolder(binding.root)
 
     }
-
-
-    fun generateAbbreviation(title: String): String {
-
-        // list of all uppercase letters from the title
-        val upperCaseLetters = title.filter { it.isUpperCase() }
-
-        if (upperCaseLetters.length >= 2) {
-            return upperCaseLetters.substring(0, 2)
-        } else {
-
-            if (upperCaseLetters.length == 1) {
-                val position = title.indexOf(upperCaseLetters[0])
-                return if (position == 0) {
-                    upperCaseLetters + title[1]
-                } else {
-                    title[0] + upperCaseLetters
-                }
-            } else {
-                return title.substring(0, 2)
-            }
-
-        }
-
-
-    }
-
 
 }
