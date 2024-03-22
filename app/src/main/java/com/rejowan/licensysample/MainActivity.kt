@@ -2,6 +2,8 @@ package com.rejowan.licensysample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.rejowan.licensy.LicenseContent
+import com.rejowan.licensy.Licenses
 import com.rejowan.licensysample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +33,8 @@ class MainActivity : AppCompatActivity() {
                 Licenses.APACHE_2_0,
                 2024,
                 "https://github.com/ahmmedrejowan/AndroidBatteryView"
-            ))
+            )
+        )
         listOfLicenses.add(
             LicenseContent(
                 "retrofit",
@@ -39,21 +42,18 @@ class MainActivity : AppCompatActivity() {
                 Licenses.APACHE_2_0,
                 null,
                 "https://github.com/square/retrofit"
-            ))
+            )
+        )
         listOfLicenses.add(
             LicenseContent(
-                "test",
-                "test author",
-                Licenses.BSD_2_CLAUSE,
-                null,
-                null))
+                "test", "test author", Licenses.BSD_2_CLAUSE, null, null
+            )
+        )
         listOfLicenses.add(
             LicenseContent(
-                "test 2",
-                "test author 2",
-                Licenses.CC_0,
-                null,
-                null))
+                "test 2", "test author 2", Licenses.CC_0, null, null
+            )
+        )
 
 
 

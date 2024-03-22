@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
 
 
-    <com.rejowan.licensysample.LicensyView
+    <com.rejowan.licensy.LicensyView
         android:id="@+id/licensyView"
         android:layout_width="match_parent"
-        tools:listitem=""
         android:layout_height="wrap_content" />
 
 

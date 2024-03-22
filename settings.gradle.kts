@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Licensy"
 include(":app")
+include(":licensy")
