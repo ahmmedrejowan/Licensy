@@ -32,7 +32,6 @@
                     android:id="@+id/tv_repo_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MPAndroidChart"
                     android:textColor="#121211"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -49,11 +48,12 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_created_by"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="Created by"
-                    android:textColor="#555555"
+                    android:textColor="#444444"
                     android:textSize="13sp" />
 
                 <TextView
@@ -61,8 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Philipp Jahoda"
-                    android:textColor="#333333"
+                    android:textColor="#121211"
                     android:textSize="14sp" />
 
                 <TextView
@@ -70,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#555555"
+                    android:textColor="#444444"
                     android:textSize="13sp" />
 
 
@@ -85,12 +84,13 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_licensed_under"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:gravity="center"
                     android:text="Licensed under"
-                    android:textColor="#555555"
+                    android:textColor="#444444"
                     android:textSize="13sp" />
 
                 <TextView
@@ -99,8 +99,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:text="Apache 2.0"
-                    android:textColor="#333333"
+                    android:textColor="#121211"
                     android:textSize="14sp" />
 
 
@@ -133,6 +132,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height=".5dp"
         android:background="#e0e0e0" />
@@ -155,7 +155,7 @@
             android:layout_marginBottom="2dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:textColor="#222222"
+            android:textColor="#121211"
             android:textSize="14sp" />
 
 
@@ -166,7 +166,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="15dp"
-            android:textColor="#333333"
+            android:textColor="#121211"
             android:textSize="13sp" />
 
 
@@ -182,11 +182,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_license_full"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Full License"
-                android:textColor="#121212"
+                android:textColor="#444444"
                 android:textSize="13sp" />
 
             <TextView
@@ -203,6 +204,7 @@
 
 
         <View
+            android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height=".5dp"
             android:background="#e0e0e0" />
@@ -219,13 +221,14 @@
 
 
         <TextView
+            android:id="@+id/tv_repository_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="Repository Link"
-            android:textColor="#121212"
+            android:textColor="#444444"
             android:textSize="13sp" />
 
         <TextView
@@ -243,6 +246,7 @@
 
 
         <View
+            android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height=".5dp"
             android:background="#e0e0e0" />

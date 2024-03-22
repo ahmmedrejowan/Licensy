@@ -17,7 +17,6 @@
 
         <!--Image-->
         <attr name="lv_open_image" format="reference" />
-        <attr name="lv_open_image_size" format="dimension" />
 
         <!--Divider-->
         <attr name="lv_divider_color" format="color" />
