@@ -1,6 +1,7 @@
 package com.rejowan.licensysample
 
-enum class Licenses(name: String, fullName: String, description: String, url: String) {
+enum class Licenses(shortName: String, fullName: String, description: String, url: String) {
+
 
     APACHE_2_0(
         "Apache 2.0",
@@ -80,6 +81,12 @@ enum class Licenses(name: String, fullName: String, description: String, url: St
         unlicense_short_description,
         "https://unlicense.org/"
     );
+
+    val shortName = shortName
+    val fullName = fullName
+    val description = description
+    val url = url
+
 
 }
 

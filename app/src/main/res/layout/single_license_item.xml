@@ -7,25 +7,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="horizontal">
 
 
         <LinearLayout
+            android:id="@+id/ll_repo_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_repo_name"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:text="MPAndroidChart"
-                android:textColor="#121211"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_repo_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MPAndroidChart"
+                    android:textColor="#121211"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -51,6 +64,14 @@
                     android:text="Philipp Jahoda"
                     android:textColor="#333333"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#555555"
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
@@ -89,7 +110,6 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -97,38 +117,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_view_license"
+
+            <ImageView
+                android:id="@+id/iv_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="View\nLicense"
-                android:textColor="#121211"
-                android:textSize="13sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="#e0e0e0" />
-
-            <TextView
-                android:id="@+id/tv_visit_repo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Visit\nRepo"
-                android:textColor="#121211"
-                android:textSize="13sp" />
+                android:padding="10dp"
+                android:src="@drawable/ic_licensy_open" />
 
         </LinearLayout>
 
@@ -141,49 +138,69 @@
         android:background="#e0e0e0" />
 
     <LinearLayout
-        android:visibility="gone"
+        android:id="@+id/ll_license_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="#f8f8f8"
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <TextView
+            android:id="@+id/tv_license_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Apache License 2.0"
-            android:textColor="#333333"
+            android:textColor="#222222"
             android:textSize="14sp" />
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_license_description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="15dp"
-            android:text="Licensed under the Apache License, Version 2.0 (the License);\n
-you may not use this file except in compliance with the License.\n
-You may obtain a copy of the License at\n\n
-
-    http://www.apache.org/licenses/LICENSE-2.0\n\n
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an AS IS BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License."
-            android:textColor="#555555"
+            android:textColor="#333333"
             android:textSize="13sp" />
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Read Full License"
-            android:textColor="#121212"
-            android:textSize="13sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Full License"
+                android:textColor="#121212"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_license_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:textColor="#1976D2"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -193,34 +210,37 @@ Unless required by applicable law or agreed to in writing, software distributed 
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
+        android:id="@+id/ll_repo_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:background="#f8f8f8"
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             android:layout_gravity="center"
-            android:text="https://github.com/PhilJay/MPAndroidChart"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Repository Link"
+            android:textColor="#121212"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_repo_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:text=""
             android:textColor="#1976D2"
             android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Visit Repository"
-            android:textColor="#121212"
-            android:textSize="13sp" />
 
         <View
             android:layout_width="match_parent"

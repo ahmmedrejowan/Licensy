@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/single_license_item3"/>
+        tools:listitem="@layout/single_license_item"/>
 
 
 </LinearLayout>
