@@ -32,16 +32,21 @@ Licensy is a handy Android library crafted in Kotlin. I always use opensouce lib
 
 ## Demo
 
+- 1 for Test app home
+- 2 for View
+- 3 for Dialog
+- 4 for BottomSheet
+
 **Shots**
 
-|  Playground |  View  |         Dialog                    |  BottomSheet |
+|  1 |  2  |         3                    |  4 |
 |-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
 |  ![Shot1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png)  |  ![Shot2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Shot3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) | ![Shot4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot4.png) |
 
 
 **Animation showing the view in details**
 
-|  Playground |  View  |         Dialog                    |  BottomSheet |
+|  1 |  2  |         3                    |  4 |
 |-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
 |  ![Anim1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim1.gif)  |  ![Anim2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim2.gif) | ![Anim3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim3.gif) | ![Anim4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim4.gif) |
 
