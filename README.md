@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/logo.svg" width="100px" align="center"/></p>
 <h1 align="center">Licensy</h1> 
-<h3 align="center">A lightweight Rotating Knob for Android<b></b></h3>
+<h3 align="center">A lightweight License/Credit Sharing Library for Android<b></b></h3>
 
 <p align="center"> <a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
  <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat" alt="API"></a> <a href="https://jitpack.io/#ahmmedrejowan/Licensy/"><img src="https://jitpack.io/v/ahmmedrejowan/Licensy.svg" alt="JitPack"></a> <a href="https://github.com/ahmmedrejowan/Licensy/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ahmmedrejowan/Licensy" alt="GitHub license"></a> </p>
@@ -22,25 +22,30 @@
 - [License](#license)
 
 ## Purpose
-Licensy is a handy Android library crafted in Kotlin. It fills the gap where Android lacks a volume knob view. Existing solutions are often outdated and incomplete. Licensy steps in to provide a simple, customizable, and well-maintained volume knob for Android developers. It's your go-to solution for adding intuitive volume controls to your apps, enhancing user experience effortlessly.
+Licensy is a handy Android library crafted in Kotlin. I always use opensouce libraries in all of my projects and I believe everyone does the same. In my projects I always try to put credits for the libraries or resources I use in my code. I looked for this type of library which will allow me to give the credits or add the licenses of the library in a proper manner for a long time. Guess what? I decided to create one.
 
 ## Features
 - Lightweight
 - Highly customizable
 - Supports both Kotlin and Java
+- Three different styles, a View, a Dialog and a BottomSheet.
 
 ## Demo
 
-| Description  |  Demo  | 
-|-------|--------------|
-|   Animated Demo of How the Knob Works. <br/><br/> You can Test various functions of this knob by downloading the demo apk. I've made a custom Knob Playground to test with the customizations - [Download](https://github.com/ahmmedrejowan/Licensy/raw/master/app/release/app-release.apk) |  ![Gif](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/knob_demo.gif) | 
+**Shots**
 
-**Shots Showing Styles and Customizations**
+|  Playground |  View  |         Dialog                    |  BottomSheet |
+|-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
+|  ![Shot1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png)  |  ![Shot2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Shot3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) | ![Shot4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot4.png) |
 
-|  Shots |  Shots  |         Shots                    | 
-|-------|--------------|-----------------------------------------------------------------------------------------------------|
-|  ![Shot1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png)  |  ![Shot2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Shot3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) |
-|  ![Shot1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png)  |  ![Shot2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Shot3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) |
+
+**Animation showing the view in details**
+
+|  Playground |  View  |         Dialog                    |  BottomSheet |
+|-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
+|  ![Anim1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim1.gif)  |  ![Anim2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim2.gif) | ![Anim3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim3.gif) | ![Anim4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim4.gif) |
+
+You can download the test apk to try out the features of this library - [Download](https://github.com/ahmmedrejowan/Licensy/raw/master/app/release/app-release.apk)
 
 ## Prerequisites
 
