@@ -104,187 +104,145 @@ dependencies {
 
 ## Usage
 
-### XML
+There are 3 different usages of this library.
+1. Use it as a View `LicensyView`
+2. Use it as a Dialog `LicensyDialog`
+3. Use it as a BottomSheet `LicensyBottomSheet`
+
+### LicensyView
+This can be used in anywhere, in any `Activity` or `Fragment`.
+
+#### XML
 
 ``` XML 
-    <com.rejowan.Licensy.Licensy
-        android:id="@+id/Licensy"
+    <com.rejowan.licensy.LicensyView
+        android:id="@+id/licensyView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="20dp" />
+        android:layout_height="wrap_content" />
+```
+This can be customized with attributes as well. Those attributes will take effect to all elements inside the view.
 
+``` XML
+    <com.rejowan.licensy.LicensyView
+        android:id="@+id/licensyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        app:lv_background_color=""
+        app:lv_background_color_expand=""
+        app:lv_divider_color=""
+        app:lv_image_tint=""
+        app:lv_open_image=""
+        app:lv_text_color_link=""
+        app:lv_text_color_primary=""
+        app:lv_text_color_secondary=""
+        app:lv_text_size_title="" />
 ```
 
-### Kotlin
+#### Kotlin
+All the attributes in XML will also work here. But the main function is the `setLicense(listOfLicenses: List<LicenseContent>)` method.
 
 ``` Kotlin
+    licensyView.setLicenses(listOfLicenses) // set the licenses to the view
+```
+The `LicenseContent` is this-
 
-        binding.Licensy.knobEnableListener = object : Licensy.OnKnobEnableListener {
-            override fun onKnobEnableChanged(isEnable: Boolean, progress: Int) {
-                
-            }
-        }
-        
-        binding.Licensy.progressChangeListener = object : Licensy.OnProgressChangeListener {
-            override fun onProgressChanged(progress: Int) {
-                
-            }
-        }
-        
-
+```Kotlin
+data class LicenseContent(
+    val title: String,
+    val author: String,
+    val licenses: Licenses,
+    val copyrightYear: Int? = null,
+    val url: String? = null
+)
 ```
 
-## Customization
+### LicenseDialog
+This one has it's predefined layout. I kept it simple but added some spice as well. As always, it's also customizable.
 
-### XML
-
-
-``` XML 
-
-<com.rejowan.Licensy.Licensy
-    android:id="@+id/Licensy2"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_weight="1"
-    app:big_progress_diff="5"
-    app:big_progress_multiplier="3"
-    app:border_color="#dddddd"
-    app:border_width="6dp"
-    app:circle_color="#ffffff"
-    app:circle_style="solid"
-    app:current_progress="10"
-    app:double_touch_to_enable="true"
-    app:indicator_color="#8062D6"
-    app:indicator_style="line"
-    app:label_text="Rotary"
-    app:label_text_color="#8062D6"
-    app:label_text_font="@font/ubuntu_normal"
-    app:label_text_size="12sp"
-    app:max="20"
-    app:min="0"
-    app:progress_color="#777777"
-    app:progress_filled_color="#8062D6"
-    app:progress_filled_multiplier="1.3"
-    app:progress_style="line"
-    app:progress_text_color="#8062D6"
-    app:progress_text_font="@font/ubuntu_normal"
-    app:progress_text_size="26sp"
-    app:progress_text_style="bold"
-    app:show_big_progress="true"
-    app:show_border="true"
-    app:show_label="true"
-    app:show_progress_text="true"
-    app:show_suffix_text="true"
-    app:suffix_text="db"
-    app:suffix_text_color="#8062D6"
-    app:suffix_text_size="10sp"
-    app:suffix_text_style="normal"
-    app:touch_to_enable="false"
-    />
-```
-
-All of this can be set programmatically using Kotlin or Java as well.
-
-### Kotlin
-
+#### Simple Usage
 
 ``` Kotlin
-
-        // listener for knob enable/disable
-        binding.Licensy.knobEnableListener = object : Licensy.OnKnobEnableListener {
-            override fun onKnobEnableChanged(isEnable: Boolean, progress: Int) {
-
-            }
-        }
-
-        // listener for knob progress change
-        binding.Licensy.progressChangeListener = object : Licensy.OnProgressChangeListener {
-            override fun onProgressChanged(progress: Int) {
-
-            }
-        }
-        
-        // set knob min, max and current progress
-        binding.Licensy.currentProgress = 50
-        binding.Licensy.min = 0
-        binding.Licensy.max = 100
-
+val licensyDialog = LicensyDialog(this)
+licensyDialog.setLicenses(list)
+licensyDialog.show()
 ```
 
+#### Full Usage
+``` Kotlin
+val licensyDialog = LicensyDialog(this)
+licensyDialog.setTitle("Licenses")
+licensyDialog.setCloseText("Dismiss")
+licensyDialog.setAccentColor(Color.GREEN)
+licensyDialog.setBackgroundColor(Color.DKGRAY)
+licensyDialog.setLicenses(list)
+licensyDialog.setOnDialogListener(object : OnDialogListener {
+    override fun onShow() {
+        Log.e("Licensy", "Dialog shown")
+    }
 
+    override fun onDismiss() {
+        Log.e("Licensy", "Dialog dismissed")
+    }
+})
+licensyDialog.setCustomization()
+licensyDialog.show()
+```
+
+#### setCustomization()
+You need to pass the LicensyCustomization to customize the items inside the list of licenses. Like this - `setCustomization(customization: LicensyCustomization)`
+
+This is the `LicensyCustomization` data class
+``` Kotlin
+    data class LicensyCustomization(
+        val lvPrimaryColor : Int = Color.parseColor("#121211"),
+        val lvSecondaryColor : Int = Color.parseColor("#444444"),
+        val lvLinkColor : Int = Color.parseColor("#0077cc"),
+        val lvTitleTextSize : Float = 0f,
+        val lvBackgroundColor : Int = Color.WHITE,
+        val lvBackgroundColorExpand : Int = Color.parseColor("#f8f8f8"),
+        val lvOpenImage : Int = R.drawable.ic_licensy_open,
+        val imageTint : Int = Color.parseColor("#444444"),
+        val lvDividerColor : Int = Color.parseColor("#e0e0e0")
+
+    )
+```
+
+### LicensyBottomSheet
+This also has the same level of customization as the `LicensyDialog`. Here is a simple example-
+
+``` Kotlin
+val licensyBottomSheet = LicensyBottomSheet(this)
+licensyBottomSheet.setLicenses(list)
+licensyBottomSheet.show()
+```
 ## Attribute
 
-Full list of attributes available
+### XML
 
-| Attribute                   | Format       | Description                                   | Example                 |
-|-----------------------------|--------------|-----------------------------------------------|-------------------------|
-| `circle_style`              | enum         | Style of the circle (`solid` or `gradient`)   | `circle_style="solid"` |
-| `circle_color`              | color        | Color of the circle                           | `circle_color="#FF0000"`|
-| `circle_gradient_center_color` | color     | Center color of the circle gradient           | `circle_gradient_center_color="#FF0000"`|
-| `circle_gradient_outer_color`  | color     | Outer color of the circle gradient            | `circle_gradient_outer_color="#00FF00"`|
-| `show_border`               | boolean      | Indicates whether to show border             | `show_border="true"`    |
-| `border_color`              | color        | Color of the border                           | `border_color="#000000"`|
-| `border_width`              | dimension    | Width of the border                           | `border_width="2dp"`    |
-| `progress_style`            | enum         | Style of the progress (`circle` or `line`)    | `progress_style="circle"`|
-| `progress_color`            | color        | Color of the progress                         | `progress_color="#00FF00"`|
-| `show_big_progress`         | boolean      | Indicates whether to show big progress       | `show_big_progress="true"`|
-| `big_progress_multiplier`   | float        | Multiplier for big progress                   | `big_progress_multiplier="1.5"`|
-| `big_progress_diff`         | integer      | Difference for big progress                   | `big_progress_diff="20"`|
-| `progress_filled_color`     | color        | Color of filled progress                      | `progress_filled_color="#FF0000"`|
-| `progress_filled_multiplier`| float        | Multiplier for filled progress                | `progress_filled_multiplier="0.8"`|
-| `indicator_style`           | enum         | Style of the indicator (`circle` or `line`)   | `indicator_style="circle"`|
-| `indicator_color`           | color        | Color of the indicator                        | `indicator_color="#0000FF"`|
-| `indicator_size`            | dimension    | Size of the indicator                         | `indicator_size="8dp"`   |
-| `show_progress_text`        | boolean      | Indicates whether to show progress text       | `show_progress_text="true"`|
-| `progress_text`             | string       | Text for progress                             | `progress_text="Volume"`|
-| `progress_text_color`       | color        | Color of progress text                        | `progress_text_color="#000000"`|
-| `progress_text_size`        | dimension    | Size of progress text                         | `progress_text_size="14sp"`|
-| `progress_text_style`       | enum         | Style of progress text (`normal`, `bold`, `italic`, `bold_italic`) | `progress_text_style="bold"`|
-| `progress_text_font`        | reference    | Font for progress text                        | `progress_text_font="@font/my_font"`|
-| `show_suffix_text`          | boolean      | Indicates whether to show suffix text         | `show_suffix_text="true"`|
-| `suffix_text`               | string       | Text for suffix                               | `suffix_text="dB"`      |
-| `suffix_text_color`         | color        | Color of suffix text                          | `suffix_text_color="#00FF00"`|
-| `suffix_text_size`          | dimension    | Size of suffix text                           | `suffix_text_size="12sp"`|
-| `suffix_text_style`         | enum         | Style of suffix text (`normal`, `bold`, `italic`, `bold_italic`) | `suffix_text_style="italic"`|
-| `suffix_text_font`          | reference    | Font for suffix text                          | `suffix_text_font="@font/my_font"`|
-| `show_label`                | boolean      | Indicates whether to show label               | `show_label="true"`     |
-| `label_text`                | string       | Text for label                                | `label_text="Volume"`   |
-| `label_text_color`          | color        | Color of label text                           | `label_text_color="#000000"`|
-| `label_text_size`           | dimension    | Size of label text                            | `label_text_size="16sp"`|
-| `label_text_style`          | enum         | Style of label text (`normal`, `bold`, `italic`, `bold_italic`) | `label_text_style="bold"`|
-| `label_text_font`           | reference    | Font for label text                           | `label_text_font="@font/my_font"`|
-| `label_margin`              | dimension    | Margin for label                              | `label_margin="8dp"`    |
-| `knob_enable`               | boolean      | Indicates whether knob is enabled            | `knob_enable="true"`    |
-| `touch_to_enable`           | boolean      | Indicates whether touch enables knob          | `touch_to_enable="true"`|
-| `double_touch_to_enable`    | boolean      | Indicates whether double touch enables knob   | `double_touch_to_enable="true"`|
-| `d_circle_color`            | color        | Default color of the circle                   | `d_circle_color="#FFFFFF"`|
-| `d_circle_gradient_center_color` | color  | Default center color of the circle gradient  | `d_circle_gradient_center_color="#FFFFFF"`|
-| `d_circle_gradient_outer_color`  | color  | Default outer color of the circle gradient   | `d_circle_gradient_outer_color="#CCCCCC"`|
-| `d_border_color`            | color        | Default color of the border                   | `d_border_color="#000000"`|
-| `d_progress_color`          | color        | Default color of the progress                 | `d_progress_color="#00FF00"`|
-| `d_big_progress_color`      | color        | Default color of the big progress             | `d_big_progress_color="#FF0000"`|
-| `d_progress_filled_color`   | color        | Default color of filled progress              | `d_progress_filled_color="#FF0000"`|
-| `d_indicator_color`         | color        | Default color of the indicator                | `d_indicator_color="#0000FF"`|
-| `d_progress_text_color`     | color        | Default color of progress text                | `d_progress_text_color="#000000"`|
-| `d_suffix_text_color`       | color        | Default color of suffix text                  | `d_suffix_text_color="#00FF00"`|
-| `d_label_text_color`        | color        | Default color of label text                   | `d_label_text_color="#000000"`|
-| `min`                       | integer      | Minimum value                                 | `min="0"`               |
-| `max`                       | integer      | Maximum value                                 | `max="100"`             |
-| `current_progress`          | integer      | Current progress value                        | `current_progress="50"` |
-
+| Attribute                  | Format       | Description                                   | Example         |
+|----------------------------|--------------|-----------------------------------------------|-----------------|
+| `lv_text_color_primary`    | color        | Primary text color                            | `#FF0000`       |
+| `lv_text_color_secondary`  | color        | Secondary text color                          | `#00FF00`       |
+| `lv_text_color_link`       | color        | Link text color                               | `#0000FF`       |
+| `lv_text_size_title`       | dimension    | Title text size                               | `16sp`          |
+| `lv_background_color`      | color        | Background color                              | `#FFFFFF`       |
+| `lv_background_color_expand`| color        | Background color when expanded                | `#F0F0F0`       |
+| `lv_open_image`            | reference    | Reference to the open image                   | `@drawable/ic_open` |
+| `lv_image_tint`            | color        | Tint color for the image                      | `#CCCCCC`       |
+| `lv_divider_color`         | color        | Color of divider between sections             | `#888888`       |
 
 ## Notes
 - The library is in its early stages, so there may be some bugs.
 - If you find any bugs, please report them in the `Issues` tab.
 - Sample app is available in the [app](https://github.com/ahmmedrejowan/Licensy/tree/master/app) directory.
-- It doesn't Support Floating Numbers for Value.
+- Right now, it only supports a few Licences, I'll be adding more in the future. Feel free to add using pull request.
 
 ## Inspiration and Credit
-- Inspired by [Knob](https://github.com/CoDevBlocks/Knob) by  [CoDevBlocks](https://github.com/CoDevBlocks)
-- Inspired by [Knob](https://github.com/BeppiMenozzi/Knob) by  [BeppiMenozzi](https://github.com/BeppiMenozzi)
-- Inspired by [kotlin-rotary-knob](https://github.com/o4oren/kotlin-rotary-knob) by  [o4oren](https://github.com/o4oren)
-- Color Picker Inspired by [ColorPicker](https://github.com/Dhaval2404/ColorPicker) by  [Dhaval2404](https://github.com/Dhaval2404)
+- Inspired by [LicensesDialog](https://github.com/PSDev/LicensesDialog) by  [PSDev](https://github.com/PSDev/)
+- Inspired by [Licenser](https://github.com/marcoscgdev/Licenser) by  [marcoscgdev](https://github.com/marcoscgdev)
+- Inspired by [LicensesDialog](https://github.com/colinrtwhite/LicensesDialog) by  [colinrtwhite](https://github.com/colinrtwhite/)
+
 
 ## Contribute
 Please fork this repository and contribute back using [pull requests](https://github.com/ahmmedrejowan/Licensy/pulls).
