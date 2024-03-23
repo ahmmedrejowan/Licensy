@@ -1,5 +1,5 @@
 <p align="center"><img src="https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/logo.svg" width="100px" align="center"/></p>
-<h1 align="center">Rotary Knob</h1> 
+<h1 align="center">Licensy</h1> 
 <h3 align="center">A lightweight Rotating Knob for Android<b></b></h3>
 
 <p align="center"> <a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
@@ -22,7 +22,7 @@
 - [License](#license)
 
 ## Purpose
-Rotary Knob is a handy Android library crafted in Kotlin. It fills the gap where Android lacks a volume knob view. Existing solutions are often outdated and incomplete. Rotary Knob steps in to provide a simple, customizable, and well-maintained volume knob for Android developers. It's your go-to solution for adding intuitive volume controls to your apps, enhancing user experience effortlessly.
+Licensy is a handy Android library crafted in Kotlin. It fills the gap where Android lacks a volume knob view. Existing solutions are often outdated and incomplete. Licensy steps in to provide a simple, customizable, and well-maintained volume knob for Android developers. It's your go-to solution for adding intuitive volume controls to your apps, enhancing user experience effortlessly.
 
 ## Features
 - Lightweight
