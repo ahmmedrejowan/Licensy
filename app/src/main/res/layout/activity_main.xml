@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
 
 
     <com.rejowan.licensy.LicensyView
         android:id="@+id/licensyView"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:layout_height="wrap_content" />
-
+        app:lv_background_color=""
+        app:lv_background_color_expand=""
+        app:lv_divider_color=""
+        app:lv_image_tint=""
+        app:lv_open_image=""
+        app:lv_text_color_link=""
+        app:lv_text_color_primary=""
+        app:lv_text_color_secondary=""
+        app:lv_text_size_title="" />
 
 
     <com.google.android.material.card.MaterialCardView

@@ -91,7 +91,11 @@ class Credit : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.licensyView.setLicenses(listOfLicenses)
+        val licensyView = binding.licensyView
+
+
+        licensyView.setLicenses(listOfLicenses) // set the licenses to the view
+
 
     }
 
