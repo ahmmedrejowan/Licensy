@@ -1,3 +1,7 @@
+apply {
+    plugin("maven-publish")
+}
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -44,4 +48,16 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+configure<PublishingExtension> {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.rejowan"
+            artifactId = "licensy"
+            version = "0.1.0"
+            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar"))
+            }
+        }
+    }
 }
