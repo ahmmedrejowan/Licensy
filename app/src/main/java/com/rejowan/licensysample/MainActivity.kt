@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.rejowan.licensy.LicensyBottomSheet
 import com.rejowan.licensy.LicensyDialog
+import com.rejowan.licensy.OnDialogListener
 import com.rejowan.licensysample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,21 +29,7 @@ class MainActivity : AppCompatActivity() {
             val list = Credit.listOfLicenses
 
             val licensyDialog = LicensyDialog(this)
-            licensyDialog.setTitle("Licenses")
-            licensyDialog.setCloseText("Dismiss")
-            licensyDialog.setAccentColor(Color.GREEN)
-            licensyDialog.setBackgroundColor(Color.DKGRAY)
             licensyDialog.setLicenses(list)
-            licensyDialog.setOnDialogListener(object : LicensyDialog.OnDialogListener {
-                override fun onShow() {
-                    Log.e("Licensy", "Dialog shown")
-                }
-
-                override fun onDismiss() {
-                    Log.e("Licensy", "Dialog dismissed")
-                }
-            })
-            licensyDialog.setCustomization()
             licensyDialog.show()
 
         }
@@ -52,26 +39,7 @@ class MainActivity : AppCompatActivity() {
             val list = Credit.listOfLicenses
 
             val licensyBottomSheet = LicensyBottomSheet(this)
-            licensyBottomSheet.setTitle("Licenses")
-            licensyBottomSheet.setCloseText("Dismiss")
-            licensyBottomSheet.setAccentColor(Color.GREEN)
-            licensyBottomSheet.setBackgroundColor(Color.RED)
             licensyBottomSheet.setLicenses(list)
-            licensyBottomSheet.setOnDialogListener(object : LicensyBottomSheet.OnDialogListener {
-                override fun onShow() {
-                    Log.e("Licensy", "Dialog shown")
-                }
-
-                override fun onDismiss() {
-                    Log.e("Licensy", "Dialog dismissed")
-                }
-
-            })
-            licensyBottomSheet.setCustomization(
-                LicensyBottomSheet.LicensyCustomization(
-                    lvPrimaryColor = Color.RED
-                )
-            )
             licensyBottomSheet.show()
         }
 
