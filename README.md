@@ -15,7 +15,6 @@
 - [Prerequisites](#prerequisites)
 - [Dependency](#dependency)
 - [Usage](#usage)
-- [Customization](#customization)
 - [Attributes](#attribute)
 - [Notes](#notes)
 - [Contribute](#contribute)
