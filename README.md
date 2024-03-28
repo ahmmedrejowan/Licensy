@@ -89,7 +89,7 @@ Add this to your module's `build.gradle.kts` file (latest version <a href="https
 ``` kotlin
 dependencies {
     ...
-    implementation("com.github.ahmmedrejowan:Licensy:0.1")
+    implementation("com.github.ahmmedrejowan:Licensy:0.2")
 }
 ```
 
@@ -97,7 +97,7 @@ dependencies {
 ``` groovy
 dependencies {
     ...
-    implementation 'com.github.ahmmedrejowan:Licensy:0.1'
+    implementation 'com.github.ahmmedrejowan:Licensy:0.2'
 }
 ```
 
@@ -151,7 +151,7 @@ data class LicenseContent(
     val title: String,
     val author: String,
     val licenses: Licenses,
-    val copyrightYear: Int? = null,
+    val copyrightYear: String? = null,
     val url: String? = null
 )
 ```
@@ -193,18 +193,18 @@ You need to pass the LicensyCustomization to customize the items inside the list
 
 This is the `LicensyCustomization` data class
 ``` Kotlin
-    data class LicensyCustomization(
-        val lvPrimaryColor : Int = Color.parseColor("#121211"),
-        val lvSecondaryColor : Int = Color.parseColor("#444444"),
-        val lvLinkColor : Int = Color.parseColor("#0077cc"),
-        val lvTitleTextSize : Float = 0f,
-        val lvBackgroundColor : Int = Color.WHITE,
-        val lvBackgroundColorExpand : Int = Color.parseColor("#f8f8f8"),
-        val lvOpenImage : Int = R.drawable.ic_licensy_open,
-        val imageTint : Int = Color.parseColor("#444444"),
-        val lvDividerColor : Int = Color.parseColor("#e0e0e0")
+data class LicensyCustomization(
+    @ColorInt val lvPrimaryColor: Int = Color.parseColor("#121211"),
+    @ColorInt val lvSecondaryColor: Int = Color.parseColor("#444444"),
+    @ColorInt val lvLinkColor: Int = Color.parseColor("#0077cc"),
+    val lvTitleTextSize: Float = 0f,
+    @ColorInt val lvBackgroundColor: Int = Color.WHITE,
+    @ColorInt val lvBackgroundColorExpand: Int = Color.parseColor("#f8f8f8"),
+    val lvOpenImage: Int = R.drawable.ic_licensy_open,
+    @ColorInt val imageTint: Int = Color.parseColor("#444444"),
+    @ColorInt val lvDividerColor: Int = Color.parseColor("#e0e0e0")
 
-    )
+)
 ```
 
 ### LicensyBottomSheet
