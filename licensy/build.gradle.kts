@@ -55,7 +55,7 @@ configure<PublishingExtension> {
         create<MavenPublication>("maven") {
             groupId = "com.rejowan"
             artifactId = "licensy"
-            version = "0.1.0"
+            version = "0.1.1"
             afterEvaluate { artifact(tasks.getByName("bundleReleaseAar"))
             }
         }
