@@ -16,7 +16,7 @@ class Credit : AppCompatActivity() {
                     "Rotary Knob",
                     "ahmmedrejowan",
                     Licenses.APACHE_2_0,
-                    2024,
+                    "2024",
                     "https://github.com/ahmmedrejowan/RotaryKnob"
                 )
             )
@@ -25,7 +25,7 @@ class Credit : AppCompatActivity() {
                     "AndroidBatteryView",
                     "ahmmedrejowan",
                     Licenses.APACHE_2_0,
-                    2024,
+                    "2024",
                     "https://github.com/ahmmedrejowan/AndroidBatteryView"
                 )
             )
