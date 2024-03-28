@@ -41,7 +41,7 @@ class LicensyView @JvmOverloads constructor(
             "Licensy",
             "ahmmedrejowan",
             Licenses.APACHE_2_0,
-            2024,
+            "2024",
             "https://github.com/ahmmedrejowan/Licensy"
         )
         adapter = LicensesAdapter(mutableListOf(demo))
@@ -54,9 +54,12 @@ class LicensyView @JvmOverloads constructor(
         try {
             lvPrimaryColor =
                 typedArray.getColor(R.styleable.LicensyView_lv_text_color_primary, lvPrimaryColor)
-            lvSecondaryColor =
-                typedArray.getColor(R.styleable.LicensyView_lv_text_color_secondary, lvSecondaryColor)
-            lvLinkColor = typedArray.getColor(R.styleable.LicensyView_lv_text_color_link, lvLinkColor)
+            lvSecondaryColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_text_color_secondary,
+                lvSecondaryColor
+            )
+            lvLinkColor =
+                typedArray.getColor(R.styleable.LicensyView_lv_text_color_link, lvLinkColor)
             lvTitleTextSize =
                 typedArray.getDimension(R.styleable.LicensyView_lv_text_size_title, lvTitleTextSize)
             lvBackgroundColor = typedArray.getColor(
@@ -65,7 +68,8 @@ class LicensyView @JvmOverloads constructor(
             lvBackgroundColorExpand = typedArray.getColor(
                 R.styleable.LicensyView_lv_background_color_expand, lvBackgroundColorExpand
             )
-            lvOpenImage = typedArray.getResourceId(R.styleable.LicensyView_lv_open_image, lvOpenImage)
+            lvOpenImage =
+                typedArray.getResourceId(R.styleable.LicensyView_lv_open_image, lvOpenImage)
             imageTint = typedArray.getColor(R.styleable.LicensyView_lv_image_tint, imageTint)
 
             lvDividerColor =
@@ -160,7 +164,8 @@ class LicensyView @JvmOverloads constructor(
             holder.binding.divider3.setBackgroundColor(lvDividerColor)
 
             if (lvTitleTextSize != 0f) {
-                holder.binding.tvRepoName.textSize = lvTitleTextSize / resources.displayMetrics.density
+                holder.binding.tvRepoName.textSize =
+                    lvTitleTextSize / resources.displayMetrics.density
             }
 
             holder.binding.ivOpen.setImageResource(lvOpenImage)

@@ -1,14 +1,12 @@
 package com.rejowan.licensy
 
-import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
-import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rejowan.licensy.databinding.BottomsheetLicensyBinding
-import com.rejowan.licensy.databinding.DialogLicensyBinding
 
 class LicensyBottomSheet(context: Context) : BottomSheetDialog(context) {
 
@@ -50,15 +48,51 @@ class LicensyBottomSheet(context: Context) : BottomSheetDialog(context) {
         binding.dialogTitle.text = title
     }
 
+    fun setTitle(title: String, @ColorInt color: Int) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+    }
+
+    fun setTitle(title: String, @ColorInt color: Int, size: Float) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+        binding.dialogTitle.textSize = size
+    }
+
+    fun setTitle(title: String, @ColorInt color: Int, size: Float, typeFace: Int) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+        binding.dialogTitle.textSize = size
+        binding.dialogTitle.typeface = Typeface.defaultFromStyle(typeFace)
+    }
+
     fun setCloseText(text: String) {
         binding.closeText.text = text
     }
 
-    fun setAccentColor(color: Int) {
+    fun setCloseText(text: String, @ColorInt color: Int) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+    }
+
+    fun setCloseText(text: String, @ColorInt color: Int, size: Float) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+        binding.closeText.textSize = size
+    }
+
+    fun setCloseText(text: String, @ColorInt color: Int, size: Float, typeFace: Int) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+        binding.closeText.textSize = size
+        binding.closeText.typeface = Typeface.defaultFromStyle(typeFace)
+    }
+
+    fun setAccentColor(@ColorInt color: Int) {
         binding.closeButton.setCardBackgroundColor(color)
     }
 
-    fun setBackgroundColor(color: Int) {
+    fun setBackgroundColor(@ColorInt color: Int) {
         binding.dialogBody.setCardBackgroundColor(color)
     }
 
@@ -80,14 +114,11 @@ class LicensyBottomSheet(context: Context) : BottomSheetDialog(context) {
         setCancelable(true)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
         window?.setLayout(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
         )
         listener?.onShow()
 
     }
-
-
 
 
 }

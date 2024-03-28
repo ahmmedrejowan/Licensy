@@ -2,10 +2,10 @@ package com.rejowan.licensy
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
-import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import com.rejowan.licensy.databinding.DialogLicensyBinding
 
 class LicensyDialog(context: Context) : Dialog(context) {
@@ -48,15 +48,51 @@ class LicensyDialog(context: Context) : Dialog(context) {
         binding.dialogTitle.text = title
     }
 
+    fun setTitle(title: String, @ColorInt color: Int) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+    }
+
+    fun setTitle(title: String, @ColorInt color: Int, size: Float) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+        binding.dialogTitle.textSize = size
+    }
+
+    fun setTitle(title: String, @ColorInt color: Int, size: Float, typeFace: Int) {
+        binding.dialogTitle.text = title
+        binding.dialogTitle.setTextColor(color)
+        binding.dialogTitle.textSize = size
+        binding.dialogTitle.typeface = Typeface.defaultFromStyle(typeFace)
+    }
+
     fun setCloseText(text: String) {
         binding.closeText.text = text
     }
 
-    fun setBackgroundColor(color: Int) {
+    fun setCloseText(text: String, @ColorInt color: Int) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+    }
+
+    fun setCloseText(text: String, @ColorInt color: Int, size: Float) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+        binding.closeText.textSize = size
+    }
+
+    fun setCloseText(text: String, @ColorInt color: Int, size: Float, typeFace: Int) {
+        binding.closeText.text = text
+        binding.closeText.setTextColor(color)
+        binding.closeText.textSize = size
+        binding.closeText.typeface = Typeface.defaultFromStyle(typeFace)
+    }
+
+    fun setBackgroundColor(@ColorInt color: Int) {
         binding.dialogBody.setCardBackgroundColor(color)
     }
 
-    fun setAccentColor(color: Int) {
+    fun setAccentColor(@ColorInt color: Int) {
         binding.dialogHeader.setCardBackgroundColor(color)
         binding.dialogFooter.setCardBackgroundColor(color)
         binding.closeButton.setCardBackgroundColor(color)
@@ -80,8 +116,7 @@ class LicensyDialog(context: Context) : Dialog(context) {
         setCancelable(true)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
         window?.setLayout(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
         )
         listener?.onShow()
 
