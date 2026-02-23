@@ -23,18 +23,18 @@ import androidx.core.graphics.toColorInt
  * @param lvButtonSecondaryTextColor Text color for secondary action button (defaults to primaryColor)
  */
 data class LicensyCustomization(
-    @param:ColorInt val lvPrimaryColor: Int = "#121211".toColorInt(),
-    @param:ColorInt val lvSecondaryColor: Int = "#444444".toColorInt(),
-    @param:ColorInt val lvLinkColor: Int = "#0077cc".toColorInt(),
+    @param:ColorInt val lvPrimaryColor: Int = "#1A1A1A".toColorInt(),
+    @param:ColorInt val lvSecondaryColor: Int = "#666666".toColorInt(),
+    @param:ColorInt val lvLinkColor: Int = "#1976D2".toColorInt(),
     val lvTitleTextSize: Float = 0f,
     @param:ColorInt val lvBackgroundColor: Int = Color.WHITE,
-    @param:ColorInt val lvBackgroundColorExpand: Int = "#f8f8f8".toColorInt(),
+    @param:ColorInt val lvBackgroundColorExpand: Int = Color.WHITE,
     val lvOpenImage: Int = R.drawable.ic_licensy_open,
-    @param:ColorInt val imageTint: Int = "#444444".toColorInt(),
-    @param:ColorInt val lvDividerColor: Int = "#e0e0e0".toColorInt(),
+    @param:ColorInt val imageTint: Int = "#666666".toColorInt(),
+    @param:ColorInt val lvDividerColor: Int = "#E0E0E0".toColorInt(),
     @param:ColorInt val lvButtonPrimaryBgColor: Int = 0,
     @param:ColorInt val lvButtonPrimaryTextColor: Int = Color.WHITE,
-    @param:ColorInt val lvButtonSecondaryBgColor: Int = 0,
+    @param:ColorInt val lvButtonSecondaryBgColor: Int = "#F5F5F5".toColorInt(),
     @param:ColorInt val lvButtonSecondaryTextColor: Int = 0
 ) {
     /** Resolved primary button background (uses linkColor if not set) */

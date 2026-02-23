@@ -15,16 +15,17 @@ object LicensyDefaults {
 
     /**
      * Creates default colors for Licensy components.
+     * Uses a minimal white theme by default.
      */
     @Composable
     fun colors(
-        primaryColor: Color = MaterialTheme.colorScheme.onSurface,
-        secondaryColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
-        linkColor: Color = MaterialTheme.colorScheme.primary,
-        backgroundColor: Color = MaterialTheme.colorScheme.surface,
-        backgroundColorExpanded: Color = MaterialTheme.colorScheme.surfaceVariant,
-        dividerColor: Color = MaterialTheme.colorScheme.outlineVariant,
-        iconTint: Color = MaterialTheme.colorScheme.onSurfaceVariant
+        primaryColor: Color = Color(0xFF1A1A1A),
+        secondaryColor: Color = Color(0xFF666666),
+        linkColor: Color = Color(0xFF1976D2),
+        backgroundColor: Color = Color.White,
+        backgroundColorExpanded: Color = Color.White,
+        dividerColor: Color = Color(0xFFE0E0E0),
+        iconTint: Color = Color(0xFF666666)
     ): LicensyColors = LicensyColors(
         primaryColor = primaryColor,
         secondaryColor = secondaryColor,
@@ -70,7 +71,7 @@ data class LicensyColors(
     val iconTint: Color,
     val buttonPrimaryBackground: Color = Color.Unspecified,
     val buttonPrimaryContent: Color = Color.White,
-    val buttonSecondaryBackground: Color = Color.Unspecified,
+    val buttonSecondaryBackground: Color = Color(0xFFF5F5F5),
     val buttonSecondaryContent: Color = Color.Unspecified
 ) {
     /** Resolved primary button background (uses linkColor if not set) */

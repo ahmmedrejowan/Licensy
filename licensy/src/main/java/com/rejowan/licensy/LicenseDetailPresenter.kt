@@ -136,9 +136,9 @@ object LicenseDetailPresenter {
         binding.tvLicenseFullName.setTextColor(customization.lvPrimaryColor)
         binding.tvLicenseDescription.setTextColor(customization.lvSecondaryColor)
 
-        // Background colors
+        // Background colors - use same color for minimal look
         binding.cardDialog.setCardBackgroundColor(customization.lvBackgroundColor)
-        binding.cardLicenseInfo.setCardBackgroundColor(customization.lvBackgroundColorExpand)
+        binding.cardLicenseInfo.setCardBackgroundColor(customization.lvBackgroundColor)
 
         // Close button tint
         binding.btnClose.imageTintList = ColorStateList.valueOf(customization.lvSecondaryColor)
@@ -221,9 +221,9 @@ object LicenseDetailPresenter {
         binding.tvLicenseFullName.setTextColor(customization.lvPrimaryColor)
         binding.tvLicenseDescription.setTextColor(customization.lvSecondaryColor)
 
-        // Background colors
+        // Background colors - use same color for minimal look
         binding.root.setBackgroundColor(customization.lvBackgroundColor)
-        binding.cardLicenseInfo.setCardBackgroundColor(customization.lvBackgroundColorExpand)
+        binding.cardLicenseInfo.setCardBackgroundColor(customization.lvBackgroundColor)
 
         // Drag handle
         binding.dragHandle.setBackgroundColor(customization.lvDividerColor)

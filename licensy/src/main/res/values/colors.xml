@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Licensy Light Theme Colors -->
-    <color name="licensy_primary">#121211</color>
-    <color name="licensy_secondary">#444444</color>
+    <!-- Licensy Light Theme Colors (Minimal White) -->
+    <color name="licensy_primary">#1A1A1A</color>
+    <color name="licensy_secondary">#666666</color>
     <color name="licensy_link">#1976D2</color>
     <color name="licensy_background">#FFFFFF</color>
-    <color name="licensy_background_expand">#F8F8F8</color>
+    <color name="licensy_background_expand">#FFFFFF</color>
     <color name="licensy_divider">#E0E0E0</color>
+    <color name="licensy_button_secondary_bg">#F5F5F5</color>
 </resources>

@@ -191,7 +191,7 @@ private fun LicenseInfoCard(
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        color = colors.backgroundColorExpanded
+        color = colors.backgroundColor // Use same color for minimal look
     ) {
         Column(
             modifier = Modifier.padding(12.dp)
