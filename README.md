@@ -1,259 +1,317 @@
 <p align="center"><img src="https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/logo.svg" width="100px" align="center"/></p>
-<h1 align="center">Licensy</h1> 
-<h3 align="center">A lightweight License/Credit Sharing Library for Android<b></b></h3>
+<h1 align="center">Licensy</h1>
+<h3 align="center">A flexible Android library for displaying open source licenses</h3>
 
-<p align="center"> <a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
- <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat" alt="API"></a> <a href="https://jitpack.io/#ahmmedrejowan/Licensy/"><img src="https://jitpack.io/v/ahmmedrejowan/Licensy.svg" alt="JitPack"></a> <a href="https://github.com/ahmmedrejowan/Licensy/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ahmmedrejowan/Licensy" alt="GitHub license"></a> </p>
+<p align="center">
+<a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
+<a href="https://android-arsenal.com/api?level=24"><img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat" alt="API"></a>
+<a href="https://central.sonatype.com/artifact/com.rejowan/licensy"><img src="https://img.shields.io/maven-central/v/com.rejowan/licensy" alt="Maven Central"></a>
+<a href="https://github.com/ahmmedrejowan/Licensy/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ahmmedrejowan/Licensy" alt="GitHub license"></a>
+</p>
 
- <p align="center"> <a href="https://github.com/ahmmedrejowan/Licensy/issues"><img src="https://img.shields.io/github/issues/ahmmedrejowan/Licensy" alt="GitHub issues"></a> <a href="https://github.com/ahmmedrejowan/Licensy/network"><img src="https://img.shields.io/github/forks/ahmmedrejowan/Licensy" alt="GitHub forks"></a> <a href="https://github.com/ahmmedrejowan/Licensy/stargazers"><img src="https://img.shields.io/github/stars/ahmmedrejowan/Licensy" alt="GitHub stars"></a> <a href="https://github.com/ahmmedrejowan/Licensy/graphs/contributors"> <img src="https://img.shields.io/github/contributors/ahmmedrejowan/Licensy" alt="GitHub contributors"></a>   </p>
+<p align="center">
+<a href="https://github.com/ahmmedrejowan/Licensy/issues"><img src="https://img.shields.io/github/issues/ahmmedrejowan/Licensy" alt="GitHub issues"></a>
+<a href="https://github.com/ahmmedrejowan/Licensy/network"><img src="https://img.shields.io/github/forks/ahmmedrejowan/Licensy" alt="GitHub forks"></a>
+<a href="https://github.com/ahmmedrejowan/Licensy/stargazers"><img src="https://img.shields.io/github/stars/ahmmedrejowan/Licensy" alt="GitHub stars"></a>
+<a href="https://github.com/ahmmedrejowan/Licensy/graphs/contributors"><img src="https://img.shields.io/github/contributors/ahmmedrejowan/Licensy" alt="GitHub contributors"></a>
+</p>
 
 ## Table of Contents
 
-- [Purpose](#purpose)
+- [What's New in 1.0](#whats-new-in-10)
 - [Features](#features)
 - [Demo](#demo)
-- [Prerequisites](#prerequisites)
-- [Dependency](#dependency)
+- [Installation](#installation)
 - [Usage](#usage)
-- [Attributes](#attribute)
-- [Notes](#notes)
+- [View Styles](#view-styles)
+- [Interaction Modes](#interaction-modes)
+- [Customization](#customization)
+- [Attributes](#attributes)
+- [Migration from 0.x](#migration-from-0x)
 - [Contribute](#contribute)
 - [License](#license)
 
-## Purpose
-Licensy is a handy Android library crafted in Kotlin. I always use opensouce libraries in all of my projects and I believe everyone does the same. In my projects I always try to put credits for the libraries or resources I use in my code. I looked for this type of library which will allow me to give the credits or add the licenses of the library in a proper manner for a long time. Guess what? I decided to create one.
+## What's New in 1.0
+
+Version 1.0 is a complete revamp with new features and a cleaner API:
+
+- **4 View Styles**: Standard, Compact, Card, and Detailed
+- **3 Interaction Modes**: Expand Inline, Dialog, and Bottom Sheet
+- **Unified API**: Single `LicensyView` with configurable styles and modes
+- **Custom Licenses**: Support for custom license definitions
+- **Material 3**: Updated design with ripple effects and modern styling
+- **Maven Central**: Now published on Maven Central
 
 ## Features
-- Lightweight
-- Highly customizable
-- Supports both Kotlin and Java
-- Three different styles, a View, a Dialog and a BottomSheet.
+
+- Lightweight and fast
+- Multiple visual styles to match your app's design
+- Flexible interaction modes (inline, dialog, bottom sheet)
+- Highly customizable colors, text sizes, and more
+- Support for custom licenses
+- Works with both Kotlin and Java
 
 ## Demo
 
-- 1 for Test app home
-- 2 for View
-- 3 for Dialog
-- 4 for BottomSheet
+| Standard | Compact | Card | Detailed |
+|----------|---------|------|----------|
+| ![Standard](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Compact](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png) | ![Card](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) | ![Detailed](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot4.png) |
 
-**Shots**
+## Installation
 
-|  1 |  2  |         3                    |  4 |
-|-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
-|  ![Shot1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot1.png)  |  ![Shot2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot2.png) | ![Shot3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot3.png) | ![Shot4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/shot4.png) |
+Add the dependency to your module's `build.gradle.kts`:
 
+```kotlin
+dependencies {
+    implementation("com.rejowan:licensy:1.0")
+}
+```
 
-**Animation showing the view in details**
+<details>
+<summary>Groovy</summary>
 
-|  1 |  2  |         3                    |  4 |
-|-------|--------------|-----------------------------------------------------------------------------------------------------|-----------------|
-|  ![Anim1](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim1.gif)  |  ![Anim2](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim2.gif) | ![Anim3](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim3.gif) | ![Anim4](https://raw.githubusercontent.com/ahmmedrejowan/Licensy/master/files/anim4.gif) |
+```groovy
+dependencies {
+    implementation 'com.rejowan:licensy:1.0'
+}
+```
+</details>
 
-You can download the test apk to try out the features of this library - [Download](https://github.com/ahmmedrejowan/Licensy/raw/master/app/release/app-release.apk)
+<details>
+<summary>Using JitPack (legacy)</summary>
 
-## Prerequisites
-
-### Kotlin DSL
-
-
-``` Kotlin
+Add JitPack repository to `settings.gradle.kts`:
+```kotlin
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
-        maven{
-            url = uri("https://jitpack.io")
-        }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 ```
 
-
-``` groovy
-dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
-		}
-	}
+Then add dependency:
+```kotlin
+implementation("com.github.ahmmedrejowan:Licensy:0.2")
 ```
-
-
-
-## Dependency
-Add this to your module's `build.gradle.kts` file (latest version <a href="https://jitpack.io/#ahmmedrejowan/Licensy"><img src="https://jitpack.io/v/ahmmedrejowan/Licensy.svg" alt="JitPack"></a>):
-
-
-``` kotlin
-dependencies {
-    ...
-    implementation("com.github.ahmmedrejowan:Licensy:0.2")
-}
-```
-
-
-``` groovy
-dependencies {
-    ...
-    implementation 'com.github.ahmmedrejowan:Licensy:0.2'
-}
-```
+</details>
 
 ## Usage
 
-There are 3 different usages of this library.
-1. Use it as a View `LicensyView`
-2. Use it as a Dialog `LicensyDialog`
-3. Use it as a BottomSheet `LicensyBottomSheet`
+### Basic Setup
 
-### LicensyView
-This can be used in anywhere, in any `Activity` or `Fragment`.
-
-#### XML
-
-``` XML 
-    <com.rejowan.licensy.LicensyView
-        android:id="@+id/licensyView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-```
-This can be customized with attributes as well. Those attributes will take effect to all elements inside the view.
-
-``` XML
-    <com.rejowan.licensy.LicensyView
-        android:id="@+id/licensyView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        app:lv_background_color=""
-        app:lv_background_color_expand=""
-        app:lv_divider_color=""
-        app:lv_image_tint=""
-        app:lv_open_image=""
-        app:lv_text_color_link=""
-        app:lv_text_color_primary=""
-        app:lv_text_color_secondary=""
-        app:lv_text_size_title="" />
+**XML Layout:**
+```xml
+<com.rejowan.licensy.LicensyView
+    android:id="@+id/licensyView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:lv_style="standard"
+    app:lv_interaction_mode="expand_inline" />
 ```
 
-#### Kotlin
-All the attributes in XML will also work here. But the main function is the `setLicense(listOfLicenses: List<LicenseContent>)` method.
+**Kotlin:**
+```kotlin
+val licenses = listOf(
+    LicenseContent(
+        title = "Retrofit",
+        author = "Square, Inc.",
+        license = Licenses.APACHE_2_0,
+        copyrightYear = "2013",
+        url = "https://github.com/square/retrofit"
+    ),
+    LicenseContent(
+        title = "OkHttp",
+        author = "Square, Inc.",
+        license = Licenses.APACHE_2_0,
+        url = "https://github.com/square/okhttp"
+    )
+)
 
-``` Kotlin
-    licensyView.setLicenses(listOfLicenses) // set the licenses to the view
+licensyView.setLicenses(licenses)
 ```
-The `LicenseContent` is this-
 
-```Kotlin
-data class LicenseContent(
-    val title: String,
-    val author: String,
-    val licenses: Licenses,
-    val copyrightYear: String? = null,
-    val url: String? = null
+### With Style and Interaction Mode
+
+```kotlin
+licensyView.apply {
+    style = LicensyStyle.CARD
+    interactionMode = LicensyInteractionMode.BOTTOM_SHEET
+    cardCornerRadius = 16f
+    cardElevation = 8f
+    setLicenses(licenses)
+}
+```
+
+### Click Listener
+
+```kotlin
+licensyView.onLicenseClickListener = OnLicenseClickListener { license ->
+    Log.d("Licensy", "Clicked: ${license.title}")
+}
+```
+
+## View Styles
+
+| Style | Description |
+|-------|-------------|
+| `STANDARD` | Expandable list with license details (default) |
+| `COMPACT` | Minimal single-row layout with title, author, and badge |
+| `CARD` | Material CardView with elevation and rounded corners |
+| `DETAILED` | Full details visible without expansion |
+
+```kotlin
+// Set via code
+licensyView.style = LicensyStyle.CARD
+
+// Set via XML
+app:lv_style="card"
+```
+
+## Interaction Modes
+
+| Mode | Description |
+|------|-------------|
+| `EXPAND_INLINE` | Expands license details within the list (default) |
+| `DIALOG` | Opens a centered dialog with full license details |
+| `BOTTOM_SHEET` | Opens a bottom sheet with full license details |
+
+```kotlin
+// Set via code
+licensyView.interactionMode = LicensyInteractionMode.DIALOG
+
+// Set via XML
+app:lv_interaction_mode="dialog"
+```
+
+## Customization
+
+### Using Properties
+
+```kotlin
+licensyView.apply {
+    lvPrimaryColor = Color.BLACK
+    lvSecondaryColor = Color.GRAY
+    lvLinkColor = Color.BLUE
+    lvBackgroundColor = Color.WHITE
+    lvDividerColor = Color.LTGRAY
+}
+```
+
+### Using LicensyCustomization
+
+```kotlin
+val customization = LicensyCustomization(
+    lvPrimaryColor = Color.parseColor("#121211"),
+    lvSecondaryColor = Color.parseColor("#444444"),
+    lvLinkColor = Color.parseColor("#0077cc"),
+    lvBackgroundColor = Color.WHITE,
+    lvBackgroundColorExpand = Color.parseColor("#f8f8f8"),
+    lvDividerColor = Color.parseColor("#e0e0e0")
+)
+
+licensyView.setCustomization(customization)
+```
+
+### Custom Licenses
+
+```kotlin
+val customLicense = License(
+    shortName = "Custom",
+    fullName = "My Custom License",
+    description = "This is a custom license.",
+    url = "https://example.com/license"
+)
+
+val license = LicenseContent(
+    title = "My Library",
+    author = "Me",
+    license = customLicense
 )
 ```
 
-### LicenseDialog
-This one has it's predefined layout. I kept it simple but added some spice as well. As always, it's also customizable.
+## Attributes
 
-#### Simple Usage
+### XML Attributes
 
-``` Kotlin
-val licensyDialog = LicensyDialog(this)
-licensyDialog.setLicenses(list)
-licensyDialog.show()
+| Attribute | Format | Description |
+|-----------|--------|-------------|
+| `lv_style` | enum | View style: `standard`, `compact`, `card`, `detailed` |
+| `lv_interaction_mode` | enum | Interaction: `expand_inline`, `dialog`, `bottom_sheet` |
+| `lv_card_corner_radius` | dimension | Corner radius for card style |
+| `lv_card_elevation` | dimension | Elevation for card style |
+| `lv_text_color_primary` | color | Primary text color |
+| `lv_text_color_secondary` | color | Secondary text color |
+| `lv_text_color_link` | color | Link text color |
+| `lv_text_size_title` | dimension | Title text size |
+| `lv_background_color` | color | Background color |
+| `lv_background_color_expand` | color | Expanded section background |
+| `lv_open_image` | reference | Icon for open link button |
+| `lv_image_tint` | color | Tint for icon |
+| `lv_divider_color` | color | Divider color |
+
+### Available Licenses
+
+The library includes these pre-defined licenses:
+
+- `Licenses.APACHE_2_0`
+- `Licenses.MIT`
+- `Licenses.BSD_3_CLAUSE`
+- `Licenses.BSD_2_CLAUSE`
+- `Licenses.GPL_3_0`
+- `Licenses.GPL_2_0`
+- `Licenses.LGPL_3_0`
+- `Licenses.LGPL_2_1`
+- `Licenses.MPL_2_0`
+- `Licenses.ISC`
+- `Licenses.UNLICENSE`
+- `Licenses.WTFPL`
+- And more...
+
+## Migration from 0.x
+
+### Breaking Changes
+
+- `LicensyDialog` class removed - use `interactionMode = DIALOG` instead
+- `LicensyBottomSheet` class removed - use `interactionMode = BOTTOM_SHEET` instead
+- `OnDialogListener` removed
+
+### Before (0.x)
+
+```kotlin
+// Dialog
+val dialog = LicensyDialog(this)
+dialog.setLicenses(licenses)
+dialog.show()
+
+// BottomSheet
+val bottomSheet = LicensyBottomSheet(this)
+bottomSheet.setLicenses(licenses)
+bottomSheet.show()
 ```
 
-#### Full Usage
-``` Kotlin
-val licensyDialog = LicensyDialog(this)
-licensyDialog.setTitle("Licenses")
-licensyDialog.setCloseText("Dismiss")
-licensyDialog.setAccentColor(Color.GREEN)
-licensyDialog.setBackgroundColor(Color.DKGRAY)
-licensyDialog.setLicenses(list)
-licensyDialog.setOnDialogListener(object : OnDialogListener {
-    override fun onShow() {
-        Log.e("Licensy", "Dialog shown")
-    }
+### After (1.0)
 
-    override fun onDismiss() {
-        Log.e("Licensy", "Dialog dismissed")
-    }
-})
-licensyDialog.setCustomization()
-licensyDialog.show()
+```kotlin
+// Dialog mode
+licensyView.interactionMode = LicensyInteractionMode.DIALOG
+licensyView.setLicenses(licenses)
+
+// BottomSheet mode
+licensyView.interactionMode = LicensyInteractionMode.BOTTOM_SHEET
+licensyView.setLicenses(licenses)
 ```
-
-#### setCustomization()
-You need to pass the LicensyCustomization to customize the items inside the list of licenses. Like this - `setCustomization(customization: LicensyCustomization)`
-
-This is the `LicensyCustomization` data class
-``` Kotlin
-data class LicensyCustomization(
-    @ColorInt val lvPrimaryColor: Int = Color.parseColor("#121211"),
-    @ColorInt val lvSecondaryColor: Int = Color.parseColor("#444444"),
-    @ColorInt val lvLinkColor: Int = Color.parseColor("#0077cc"),
-    val lvTitleTextSize: Float = 0f,
-    @ColorInt val lvBackgroundColor: Int = Color.WHITE,
-    @ColorInt val lvBackgroundColorExpand: Int = Color.parseColor("#f8f8f8"),
-    val lvOpenImage: Int = R.drawable.ic_licensy_open,
-    @ColorInt val imageTint: Int = Color.parseColor("#444444"),
-    @ColorInt val lvDividerColor: Int = Color.parseColor("#e0e0e0")
-
-)
-```
-
-### LicensyBottomSheet
-This also has the same level of customization as the `LicensyDialog`. Here is a simple example-
-
-``` Kotlin
-val licensyBottomSheet = LicensyBottomSheet(this)
-licensyBottomSheet.setLicenses(list)
-licensyBottomSheet.show()
-```
-## Attribute
-
-### XML
-
-| Attribute                  | Format       | Description                                   | Example         |
-|----------------------------|--------------|-----------------------------------------------|-----------------|
-| `lv_text_color_primary`    | color        | Primary text color                            | `#FF0000`       |
-| `lv_text_color_secondary`  | color        | Secondary text color                          | `#00FF00`       |
-| `lv_text_color_link`       | color        | Link text color                               | `#0000FF`       |
-| `lv_text_size_title`       | dimension    | Title text size                               | `16sp`          |
-| `lv_background_color`      | color        | Background color                              | `#FFFFFF`       |
-| `lv_background_color_expand`| color        | Background color when expanded                | `#F0F0F0`       |
-| `lv_open_image`            | reference    | Reference to the open image                   | `@drawable/ic_open` |
-| `lv_image_tint`            | color        | Tint color for the image                      | `#CCCCCC`       |
-| `lv_divider_color`         | color        | Color of divider between sections             | `#888888`       |
-
-## Notes
-- The library is in its early stages, so there may be some bugs.
-- If you find any bugs, please report them in the `Issues` tab.
-- Sample app is available in the [app](https://github.com/ahmmedrejowan/Licensy/tree/master/app) directory.
-- Right now, it only supports a few Licences, I'll be adding more in the future. Feel free to add using pull request.
-
-## Inspiration and Credit
-- Inspired by [LicensesDialog](https://github.com/PSDev/LicensesDialog) by  [PSDev](https://github.com/PSDev/)
-- Inspired by [Licenser](https://github.com/marcoscgdev/Licenser) by  [marcoscgdev](https://github.com/marcoscgdev)
-- Inspired by [LicensesDialog](https://github.com/colinrtwhite/LicensesDialog) by  [colinrtwhite](https://github.com/colinrtwhite/)
-
 
 ## Contribute
+
 Please fork this repository and contribute back using [pull requests](https://github.com/ahmmedrejowan/Licensy/pulls).
 
 Any contributions, large or small, major features, bug fixes, are welcomed and appreciated.
 
-Let me know which features you want in the future in `Request Feature` tab.
-
-If this project helps you a little bit, then give a to Star ⭐ the Repo.
+If this project helps you, give a Star to the Repo.
 
 ## License
-* [Apache Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ```
 Copyright 2024 ahmmedrejowan
@@ -269,5 +327,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
 ```
