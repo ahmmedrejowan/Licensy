@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/licensy_background"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="15dp">
 

@@ -62,7 +62,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.rejowan"
             artifactId = "licensy"
-            version = "0.2"
+            version = "1.0"
 
             afterEvaluate {
                 from(components["release"])
