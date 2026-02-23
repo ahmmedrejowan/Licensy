@@ -52,7 +52,9 @@ android {
 
 dependencies {
     // Reuse data classes from the view-based module
-    implementation(project(":licensy"))
+    // For local development, use project dependency
+    // For publishing, the POM will reference the Maven artifact
+    api(project(":licensy"))
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))
@@ -75,7 +77,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.rejowan"
             artifactId = "licensy-compose"
-            version = "1.0"
+            version = "1.1.0"
 
             afterEvaluate {
                 from(components["release"])
@@ -129,6 +131,6 @@ tasks.register<Zip>("createCentralBundle") {
     dependsOn("publishReleasePublicationToStagingRepository")
 
     from(layout.buildDirectory.dir("staging-deploy"))
-    archiveFileName.set("licensy-compose-1.0-bundle.zip")
+    archiveFileName.set("licensy-compose-1.1.0-bundle.zip")
     destinationDirectory.set(layout.buildDirectory.dir("central-bundle"))
 }

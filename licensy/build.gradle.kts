@@ -64,7 +64,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.rejowan"
             artifactId = "licensy"
-            version = "1.0"
+            version = "1.1.0"
 
             afterEvaluate {
                 from(components["release"])
@@ -126,6 +126,6 @@ tasks.register<Zip>("createCentralBundle") {
     dependsOn("publishReleasePublicationToStagingRepository")
 
     from(layout.buildDirectory.dir("staging-deploy"))
-    archiveFileName.set("licensy-1.0-bundle.zip")
+    archiveFileName.set("licensy-1.1.0-bundle.zip")
     destinationDirectory.set(layout.buildDirectory.dir("central-bundle"))
 }
