@@ -7,4 +7,7 @@
     <string name="licensy_close">Close</string>
     <string name="licensy_third_party_licenses">Third Party Licenses</string>
     <string name="licensy_copyright">© %1$s</string>
+    <string name="licensy_license">License</string>
+    <string name="licensy_repository">Repository</string>
+    <string name="licensy_by">by %1$s</string>
 </resources>

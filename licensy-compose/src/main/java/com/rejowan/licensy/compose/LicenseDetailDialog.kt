@@ -19,13 +19,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -57,9 +52,9 @@ internal fun LicenseDetailDialog(
     Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = colors.backgroundColor),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth()
@@ -97,13 +92,13 @@ private fun DialogHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.backgroundColorExpanded)
-            .padding(start = 20.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
+            .padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
             color = colors.primaryColor,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -112,22 +107,20 @@ private fun DialogHeader(
 
         IconButton(
             onClick = onClose,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
+            modifier = Modifier.size(36.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Close,
                 contentDescription = "Close",
                 tint = colors.secondaryColor,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(18.dp)
             )
         }
     }
 }
 
 /**
- * Shared content for both Dialog and BottomSheet with improved layout.
+ * Shared content for both Dialog and BottomSheet with compact layout.
  */
 @Composable
 internal fun LicenseDetailContent(
@@ -141,39 +134,40 @@ internal fun LicenseDetailContent(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
-            .padding(20.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         // Title (only for bottom sheet)
         if (showTitle) {
             Text(
                 text = license.title,
                 color = colors.primaryColor,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
         }
 
-        // Author Section
-        InfoRow(
-            icon = Icons.Filled.Person,
-            label = "Author",
-            value = license.author,
-            colors = colors
-        )
-
-        // Copyright Year
-        license.copyrightYear?.let { year ->
-            Spacer(modifier = Modifier.height(12.dp))
-            InfoRow(
-                icon = Icons.Filled.DateRange,
-                label = "Copyright",
-                value = "© $year",
-                colors = colors
+        // Author & Copyright in one row
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "by ${license.author}",
+                color = colors.secondaryColor,
+                fontSize = 13.sp
             )
+            license.copyrightYear?.let { year ->
+                Text(
+                    text = "© $year",
+                    color = colors.secondaryColor,
+                    fontSize = 13.sp
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         // License Card
         LicenseInfoCard(
@@ -181,7 +175,7 @@ internal fun LicenseDetailContent(
             colors = colors
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         // Action Buttons
         ActionButtonsRow(
@@ -189,55 +183,6 @@ internal fun LicenseDetailContent(
             colors = colors,
             onUrlClick = onUrlClick
         )
-    }
-}
-
-/**
- * Row displaying an icon, label, and value.
- */
-@Composable
-private fun InfoRow(
-    icon: ImageVector,
-    label: String,
-    value: String,
-    colors: LicensyColors
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Box(
-            modifier = Modifier
-                .size(36.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .background(colors.backgroundColorExpanded),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = colors.iconTint,
-                modifier = Modifier.size(18.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Column {
-            Text(
-                text = label,
-                color = colors.secondaryColor,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.5.sp
-            )
-            Text(
-                text = value,
-                color = colors.primaryColor,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
     }
 }
 
@@ -251,27 +196,31 @@ private fun LicenseInfoCard(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         color = colors.backgroundColorExpanded
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(12.dp)
         ) {
-            // License Badge
-            LicenseBadge(
-                licenseName = license.license.shortName,
-                colors = colors
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Full License Name
-            Text(
-                text = license.license.fullName,
-                color = colors.primaryColor,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+            // Badge and Full Name in one row
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                LicenseBadge(
+                    licenseName = license.license.shortName,
+                    colors = colors
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = license.license.fullName,
+                    color = colors.primaryColor,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
+                )
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -279,8 +228,8 @@ private fun LicenseInfoCard(
             Text(
                 text = license.license.description,
                 color = colors.secondaryColor,
-                fontSize = 13.sp,
-                lineHeight = 20.sp
+                fontSize = 12.sp,
+                lineHeight = 18.sp
             )
         }
     }
@@ -295,16 +244,15 @@ private fun LicenseBadge(
     colors: LicensyColors
 ) {
     Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(6.dp),
         color = colors.linkColor.copy(alpha = 0.15f)
     ) {
         Text(
             text = licenseName,
             color = colors.linkColor,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 0.5.sp,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         )
     }
 }
@@ -318,27 +266,29 @@ private fun ActionButtonsRow(
     colors: LicensyColors,
     onUrlClick: ((String) -> Unit)?
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
         // View License Button
         ActionButton(
-            text = "View Full License",
+            text = "License",
             icon = Icons.AutoMirrored.Filled.ArrowForward,
             colors = colors,
             isPrimary = true,
-            onClick = { onUrlClick?.invoke(license.license.url) }
+            onClick = { onUrlClick?.invoke(license.license.url) },
+            modifier = Modifier.weight(1f)
         )
 
         // View Repository Button (if available)
         license.url?.let { repoUrl ->
             ActionButton(
-                text = "View Repository",
+                text = "Repository",
                 icon = Icons.AutoMirrored.Filled.ArrowForward,
                 colors = colors,
                 isPrimary = false,
-                onClick = { onUrlClick?.invoke(repoUrl) }
+                onClick = { onUrlClick?.invoke(repoUrl) },
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -353,38 +303,38 @@ private fun ActionButton(
     icon: ImageVector,
     colors: LicensyColors,
     isPrimary: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val backgroundColor = if (isPrimary) colors.linkColor else colors.backgroundColorExpanded
     val contentColor = if (isPrimary) Color.White else colors.primaryColor
 
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(10.dp),
         color = backgroundColor
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+                .padding(horizontal = 12.dp, vertical = 10.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = text,
                 color = contentColor,
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 tint = contentColor,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(14.dp)
             )
         }
     }
@@ -407,34 +357,17 @@ internal fun BottomSheetContent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp),
+                .padding(vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = Modifier
-                    .width(40.dp)
+                    .width(36.dp)
                     .height(4.dp)
                     .clip(RoundedCornerShape(2.dp))
                     .background(colors.dividerColor)
             )
         }
-
-        // Title Header
-        Text(
-            text = license.title,
-            color = colors.primaryColor,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 20.dp)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        HorizontalDivider(
-            color = colors.dividerColor,
-            thickness = 1.dp,
-            modifier = Modifier.padding(horizontal = 20.dp)
-        )
 
         // Content
         LicenseDetailContent(
@@ -442,10 +375,10 @@ internal fun BottomSheetContent(
             colors = colors,
             dimensions = dimensions,
             onUrlClick = onUrlClick,
-            showTitle = false
+            showTitle = true
         )
 
         // Bottom padding for navigation bar
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
