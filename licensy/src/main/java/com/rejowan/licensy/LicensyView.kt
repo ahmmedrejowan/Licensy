@@ -2,6 +2,8 @@ package com.rejowan.licensy
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,62 +30,93 @@ fun interface OnLicenseClickListener {
  * - [LicensyInteractionMode.BOTTOM_SHEET]: Show details in bottom sheet
  */
 class LicensyView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
+    // Flag to prevent redundant updates during initialization
+    private var isInitializing = true
+
     // Color customization
-    var lvPrimaryColor = ContextCompat.getColor(context, R.color.licensy_primary)
+    @get:ColorInt
+    var lvPrimaryColor: Int = ContextCompat.getColor(context, R.color.licensy_primary)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvSecondaryColor = ContextCompat.getColor(context, R.color.licensy_secondary)
+    @get:ColorInt
+    var lvSecondaryColor: Int = ContextCompat.getColor(context, R.color.licensy_secondary)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvLinkColor = ContextCompat.getColor(context, R.color.licensy_link)
+    @get:ColorInt
+    var lvLinkColor: Int = ContextCompat.getColor(context, R.color.licensy_link)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvTitleTextSize = 0f
+    var lvTitleTextSize: Float = 0f
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvBackgroundColor = ContextCompat.getColor(context, R.color.licensy_background)
+    @get:ColorInt
+    var lvBackgroundColor: Int = ContextCompat.getColor(context, R.color.licensy_background)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvBackgroundColorExpand = ContextCompat.getColor(context, R.color.licensy_background_expand)
+    @get:ColorInt
+    var lvBackgroundColorExpand: Int = ContextCompat.getColor(context, R.color.licensy_background_expand)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvOpenImage = R.drawable.ic_licensy_open
+    @get:DrawableRes
+    var lvOpenImage: Int = R.drawable.ic_licensy_open
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var imageTint = ContextCompat.getColor(context, R.color.licensy_secondary)
+    @get:ColorInt
+    var imageTint: Int = ContextCompat.getColor(context, R.color.licensy_secondary)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
-    var lvDividerColor = ContextCompat.getColor(context, R.color.licensy_divider)
+    @get:ColorInt
+    var lvDividerColor: Int = ContextCompat.getColor(context, R.color.licensy_divider)
         set(value) {
-            field = value
-            updateCustomization()
+            if (field != value) {
+                field = value
+                notifyCustomizationChanged()
+            }
         }
 
     /**
@@ -91,8 +124,10 @@ class LicensyView @JvmOverloads constructor(
      */
     var style: LicensyStyle = LicensyStyle.STANDARD
         set(value) {
-            field = value
-            licensyAdapter.updateStyle(value)
+            if (field != value) {
+                field = value
+                licensyAdapter.updateStyle(value)
+            }
         }
 
     /**
@@ -100,28 +135,37 @@ class LicensyView @JvmOverloads constructor(
      */
     var interactionMode: LicensyInteractionMode = LicensyInteractionMode.EXPAND_INLINE
         set(value) {
-            field = value
-            licensyAdapter.updateInteractionMode(value)
+            if (field != value) {
+                field = value
+                licensyAdapter.updateInteractionMode(value)
+            }
         }
 
     /**
-     * Corner radius for CardView style (in dp converted to pixels).
+     * Corner radius for CardView style (in pixels).
      */
-    var cardCornerRadius = 12f
+    var cardCornerRadius: Float = 12f
         set(value) {
-            field = value
-            licensyAdapter.updateCardProperties(value, cardElevation)
+            if (field != value) {
+                field = value
+                licensyAdapter.updateCardProperties(value, cardElevation)
+            }
         }
 
     /**
-     * Elevation for CardView style (in dp converted to pixels).
+     * Elevation for CardView style (in pixels).
      */
-    var cardElevation = 4f
+    var cardElevation: Float = 4f
         set(value) {
-            field = value
-            licensyAdapter.updateCardProperties(cardCornerRadius, value)
+            if (field != value) {
+                field = value
+                licensyAdapter.updateCardProperties(cardCornerRadius, value)
+            }
         }
 
+    /**
+     * Listener for license item click events.
+     */
     var onLicenseClickListener: OnLicenseClickListener? = null
 
     private val animationDuration = 200L
@@ -130,7 +174,7 @@ class LicensyView @JvmOverloads constructor(
     init {
         layoutManager = LinearLayoutManager(context)
 
-        // Initialize adapter
+        // Initialize adapter with default values
         licensyAdapter = LicensyAdapter(
             style = style,
             interactionMode = interactionMode,
@@ -150,47 +194,90 @@ class LicensyView @JvmOverloads constructor(
         // Parse XML attributes
         initAttributes(context, attrs)
 
-        // Set demo item for preview
-        val demo = LicenseContent(
-            "Licensy",
-            "ahmmedrejowan",
-            Licenses.APACHE_2_0,
-            "2024",
-            "https://github.com/ahmmedrejowan/Licensy"
-        )
-        licensyAdapter.updateList(listOf(demo))
+        // Set demo item for preview in Android Studio
+        if (isInEditMode) {
+            val demo = LicenseContent(
+                "Licensy",
+                "ahmmedrejowan",
+                Licenses.APACHE_2_0,
+                "2024",
+                "https://github.com/ahmmedrejowan/Licensy"
+            )
+            licensyAdapter.updateList(listOf(demo))
+        }
+
+        isInitializing = false
     }
 
     private fun initAttributes(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LicensyView)
 
         try {
-            lvPrimaryColor = typedArray.getColor(R.styleable.LicensyView_lv_text_color_primary, lvPrimaryColor)
-            lvSecondaryColor = typedArray.getColor(R.styleable.LicensyView_lv_text_color_secondary, lvSecondaryColor)
-            lvLinkColor = typedArray.getColor(R.styleable.LicensyView_lv_text_color_link, lvLinkColor)
-            lvTitleTextSize = typedArray.getDimension(R.styleable.LicensyView_lv_text_size_title, lvTitleTextSize)
-            lvBackgroundColor = typedArray.getColor(R.styleable.LicensyView_lv_background_color, lvBackgroundColor)
-            lvBackgroundColorExpand = typedArray.getColor(R.styleable.LicensyView_lv_background_color_expand, lvBackgroundColorExpand)
-            lvOpenImage = typedArray.getResourceId(R.styleable.LicensyView_lv_open_image, lvOpenImage)
-            imageTint = typedArray.getColor(R.styleable.LicensyView_lv_image_tint, imageTint)
-            lvDividerColor = typedArray.getColor(R.styleable.LicensyView_lv_divider_color, lvDividerColor)
+            lvPrimaryColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_text_color_primary,
+                lvPrimaryColor
+            )
+            lvSecondaryColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_text_color_secondary,
+                lvSecondaryColor
+            )
+            lvLinkColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_text_color_link,
+                lvLinkColor
+            )
+            lvTitleTextSize = typedArray.getDimension(
+                R.styleable.LicensyView_lv_text_size_title,
+                lvTitleTextSize
+            )
+            lvBackgroundColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_background_color,
+                lvBackgroundColor
+            )
+            lvBackgroundColorExpand = typedArray.getColor(
+                R.styleable.LicensyView_lv_background_color_expand,
+                lvBackgroundColorExpand
+            )
+            lvOpenImage = typedArray.getResourceId(
+                R.styleable.LicensyView_lv_open_image,
+                lvOpenImage
+            )
+            imageTint = typedArray.getColor(
+                R.styleable.LicensyView_lv_image_tint,
+                imageTint
+            )
+            lvDividerColor = typedArray.getColor(
+                R.styleable.LicensyView_lv_divider_color,
+                lvDividerColor
+            )
 
-            // New style attributes
-            val styleOrdinal = typedArray.getInt(R.styleable.LicensyView_lv_style, LicensyStyle.STANDARD.ordinal)
+            // Style attributes
+            val styleOrdinal = typedArray.getInt(
+                R.styleable.LicensyView_lv_style,
+                LicensyStyle.STANDARD.ordinal
+            )
             style = LicensyStyle.entries[styleOrdinal]
 
-            val modeOrdinal = typedArray.getInt(R.styleable.LicensyView_lv_interaction_mode, LicensyInteractionMode.EXPAND_INLINE.ordinal)
+            val modeOrdinal = typedArray.getInt(
+                R.styleable.LicensyView_lv_interaction_mode,
+                LicensyInteractionMode.EXPAND_INLINE.ordinal
+            )
             interactionMode = LicensyInteractionMode.entries[modeOrdinal]
 
-            cardCornerRadius = typedArray.getDimension(R.styleable.LicensyView_lv_card_corner_radius, cardCornerRadius)
-            cardElevation = typedArray.getDimension(R.styleable.LicensyView_lv_card_elevation, cardElevation)
+            cardCornerRadius = typedArray.getDimension(
+                R.styleable.LicensyView_lv_card_corner_radius,
+                cardCornerRadius
+            )
+            cardElevation = typedArray.getDimension(
+                R.styleable.LicensyView_lv_card_elevation,
+                cardElevation
+            )
 
         } finally {
             typedArray.recycle()
         }
 
-        // Apply initial customization
-        updateCustomization()
+        // Apply initial customization after all attributes are parsed
+        licensyAdapter.updateCustomization(buildCustomization())
     }
 
     /**
@@ -204,6 +291,9 @@ class LicensyView @JvmOverloads constructor(
      * Applies a [LicensyCustomization] object to configure all styling properties.
      */
     fun setCustomization(customization: LicensyCustomization) {
+        // Temporarily disable notifications
+        isInitializing = true
+
         lvPrimaryColor = customization.lvPrimaryColor
         lvSecondaryColor = customization.lvSecondaryColor
         lvLinkColor = customization.lvLinkColor
@@ -213,6 +303,11 @@ class LicensyView @JvmOverloads constructor(
         lvOpenImage = customization.lvOpenImage
         imageTint = customization.imageTint
         lvDividerColor = customization.lvDividerColor
+
+        isInitializing = false
+
+        // Single update after all properties are set
+        licensyAdapter.updateCustomization(buildCustomization())
     }
 
     private fun buildCustomization(): LicensyCustomization {
@@ -229,8 +324,10 @@ class LicensyView @JvmOverloads constructor(
         )
     }
 
-    private fun updateCustomization() {
-        licensyAdapter.updateCustomization(buildCustomization())
+    private fun notifyCustomizationChanged() {
+        if (!isInitializing) {
+            licensyAdapter.updateCustomization(buildCustomization())
+        }
     }
 
     private fun handleItemClick(license: LicenseContent) {

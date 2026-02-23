@@ -50,7 +50,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.tvRepoName.text = license.title
             binding.tvAuthorName.text = license.author
             binding.copyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.copyright.text = "\u00A9 ${license.copyrightYear}"
+            binding.copyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
 
             // URL handling
             binding.ivOpen.visibility = if (license.url != null) View.VISIBLE else View.GONE
@@ -212,7 +212,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.tvTitle.text = license.title
             binding.tvAuthor.text = license.author
             binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.tvCopyright.text = "\u00A9 ${license.copyrightYear}"
+            binding.tvCopyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
             binding.tvLicenseBadge.text = license.license.shortName
             binding.tvLicenseName.text = license.license.fullName
 
@@ -265,7 +265,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.tvTitle.text = license.title
             binding.tvAuthor.text = license.author
             binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.tvCopyright.text = "\u00A9 ${license.copyrightYear}"
+            binding.tvCopyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
 
             binding.tvLicenseFullName.text = licenseType.fullName
             binding.tvLicenseDescription.text = licenseType.description

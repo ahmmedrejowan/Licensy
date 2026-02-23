@@ -125,6 +125,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="10dp"
+                android:contentDescription="@string/licensy_repository_link"
                 android:src="@drawable/ic_licensy_open" />
 
         </LinearLayout>

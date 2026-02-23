@@ -4,16 +4,15 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rejowan.licensy.databinding.BottomsheetLicenseDetailBinding
 import com.rejowan.licensy.databinding.DialogLicenseDetailBinding
-import androidx.core.graphics.drawable.toDrawable
 
 /**
  * Object responsible for presenting license details in a dialog or bottom sheet.
@@ -90,7 +89,7 @@ object LicenseDetailPresenter {
         binding.tvTitle.text = license.title
         binding.tvAuthor.text = license.author
         binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-        binding.tvCopyright.text = "\u00A9 ${license.copyrightYear}"
+        binding.tvCopyright.text = context.getString(R.string.licensy_copyright, license.copyrightYear)
 
         // License details
         binding.tvLicenseFullName.text = licenseType.fullName
@@ -140,7 +139,7 @@ object LicenseDetailPresenter {
         binding.tvTitle.text = license.title
         binding.tvAuthor.text = license.author
         binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-        binding.tvCopyright.text = "\u00A9 ${license.copyrightYear}"
+        binding.tvCopyright.text = context.getString(R.string.licensy_copyright, license.copyrightYear)
 
         // License details
         binding.tvLicenseFullName.text = licenseType.fullName

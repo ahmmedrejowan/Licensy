@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:padding="8dp"
+            android:contentDescription="@string/licensy_repository_link"
             android:src="@drawable/ic_licensy_open"
             android:visibility="gone" />
 

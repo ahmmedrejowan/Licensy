@@ -1,5 +1,6 @@
 package com.rejowan.licensy
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,7 @@ import com.rejowan.licensy.databinding.LicenseItemStandardBinding
 /**
  * RecyclerView adapter for displaying license items with different styles.
  */
-class LicensyAdapter(
+internal class LicensyAdapter(
     private var style: LicensyStyle = LicensyStyle.STANDARD,
     private var interactionMode: LicensyInteractionMode = LicensyInteractionMode.EXPAND_INLINE,
     private var customization: LicensyCustomization = LicensyCustomization(),
@@ -24,9 +25,12 @@ class LicensyAdapter(
     private val licenses = mutableListOf<LicenseContent>()
     var onItemClick: ((LicenseContent) -> Unit)? = null
 
-    override fun getItemViewType(position: Int): Int {
-        return style.ordinal
+    companion object {
+        private const val PAYLOAD_CUSTOMIZATION = "customization"
+        private const val PAYLOAD_CARD_PROPERTIES = "card_properties"
     }
+
+    override fun getItemViewType(position: Int): Int = style.ordinal
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LicensyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -54,9 +58,33 @@ class LicensyAdapter(
         val license = licenses[position]
         holder.bind(license, customization, interactionMode, onItemClick, animationDuration)
 
-        // Apply card-specific properties
         if (holder is LicensyViewHolder.Card) {
             holder.setCardProperties(cardCornerRadius, cardElevation)
+        }
+    }
+
+    override fun onBindViewHolder(
+        holder: LicensyViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+            return
+        }
+
+        val license = licenses[position]
+        for (payload in payloads) {
+            when (payload) {
+                PAYLOAD_CUSTOMIZATION -> {
+                    holder.bind(license, customization, interactionMode, onItemClick, animationDuration)
+                }
+                PAYLOAD_CARD_PROPERTIES -> {
+                    if (holder is LicensyViewHolder.Card) {
+                        holder.setCardProperties(cardCornerRadius, cardElevation)
+                    }
+                }
+            }
         }
     }
 
@@ -75,7 +103,9 @@ class LicensyAdapter(
 
     /**
      * Updates the style and refreshes all items.
+     * Uses notifyDataSetChanged because ViewHolder types change.
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun updateStyle(newStyle: LicensyStyle) {
         if (style != newStyle) {
             style = newStyle
@@ -89,7 +119,9 @@ class LicensyAdapter(
     fun updateInteractionMode(newMode: LicensyInteractionMode) {
         if (interactionMode != newMode) {
             interactionMode = newMode
-            notifyDataSetChanged()
+            if (licenses.isNotEmpty()) {
+                notifyItemRangeChanged(0, licenses.size, PAYLOAD_CUSTOMIZATION)
+            }
         }
     }
 
@@ -98,7 +130,9 @@ class LicensyAdapter(
      */
     fun updateCustomization(newCustomization: LicensyCustomization) {
         customization = newCustomization
-        notifyDataSetChanged()
+        if (licenses.isNotEmpty()) {
+            notifyItemRangeChanged(0, licenses.size, PAYLOAD_CUSTOMIZATION)
+        }
     }
 
     /**
@@ -107,8 +141,8 @@ class LicensyAdapter(
     fun updateCardProperties(cornerRadius: Float, elevation: Float) {
         cardCornerRadius = cornerRadius
         cardElevation = elevation
-        if (style == LicensyStyle.CARD) {
-            notifyDataSetChanged()
+        if (style == LicensyStyle.CARD && licenses.isNotEmpty()) {
+            notifyItemRangeChanged(0, licenses.size, PAYLOAD_CARD_PROPERTIES)
         }
     }
 
@@ -123,11 +157,14 @@ class LicensyAdapter(
         private val oldList: List<LicenseContent>,
         private val newList: List<LicenseContent>
     ) : DiffUtil.Callback() {
-        override fun getOldListSize() = oldList.size
-        override fun getNewListSize() = newList.size
+        override fun getOldListSize(): Int = oldList.size
+        override fun getNewListSize(): Int = newList.size
+
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].title == newList[newItemPosition].title
+            return oldList[oldItemPosition].title == newList[newItemPosition].title &&
+                    oldList[oldItemPosition].author == newList[newItemPosition].author
         }
+
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition] == newList[newItemPosition]
         }

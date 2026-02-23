@@ -6,4 +6,5 @@
     <string name="licensy_repository_link">Repository Link</string>
     <string name="licensy_close">Close</string>
     <string name="licensy_third_party_licenses">Third Party Licenses</string>
+    <string name="licensy_copyright">© %1$s</string>
 </resources>
