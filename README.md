@@ -77,6 +77,9 @@
 
 ## Installation
 
+[![Maven Central - licensy](https://img.shields.io/maven-central/v/com.rejowan/licensy?label=licensy)](https://central.sonatype.com/artifact/com.rejowan/licensy)
+[![Maven Central - licensy-compose](https://img.shields.io/maven-central/v/com.rejowan/licensy-compose?label=licensy-compose)](https://central.sonatype.com/artifact/com.rejowan/licensy-compose)
+
 ### View System (XML)
 
 Add to your module's `build.gradle.kts`:
