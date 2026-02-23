@@ -123,9 +123,10 @@ fun LicensyList(
                 selectedLicense = null
             },
             sheetState = bottomSheetState,
-            containerColor = colors.backgroundColor
+            containerColor = colors.backgroundColor,
+            dragHandle = null // We use custom drag handle in BottomSheetContent
         ) {
-            LicenseDetailContent(
+            BottomSheetContent(
                 license = selectedLicense!!,
                 colors = colors,
                 dimensions = dimensions,
