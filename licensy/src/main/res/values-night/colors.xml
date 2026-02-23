@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Licensy Dark Theme Colors -->
+    <color name="licensy_primary">#EEEEEE</color>
+    <color name="licensy_secondary">#BBBBBB</color>
+    <color name="licensy_link">#64B5F6</color>
+    <color name="licensy_background">#1E1E1E</color>
+    <color name="licensy_background_expand">#2D2D2D</color>
+    <color name="licensy_divider">#3D3D3D</color>
+</resources>

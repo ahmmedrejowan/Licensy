@@ -12,7 +12,7 @@
             android:id="@+id/dialog_body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="#ffffff">
+            app:cardBackgroundColor="@color/licensy_background">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -29,8 +29,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Third Party Licenses"
-                    android:textColor="#121211"
+                    android:text="@string/licensy_third_party_licenses"
+                    android:textColor="@color/licensy_primary"
                     android:textSize="16sp" />
 
 
@@ -61,7 +61,7 @@
                         android:paddingTop="10dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="10dp"
-                        android:text="Close"
+                        android:text="@string/licensy_close"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp" />
 

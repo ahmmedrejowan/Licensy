@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="licensy_created_by">Created by</string>
+    <string name="licensy_licensed_under">Licensed under</string>
+    <string name="licensy_full_license">Full License</string>
+    <string name="licensy_repository_link">Repository Link</string>
+    <string name="licensy_close">Close</string>
+    <string name="licensy_third_party_licenses">Third Party Licenses</string>
+</resources>

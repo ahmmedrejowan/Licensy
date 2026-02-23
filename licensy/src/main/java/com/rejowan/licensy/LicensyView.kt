@@ -2,37 +2,47 @@ package com.rejowan.licensy
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rejowan.licensy.databinding.SingleLicenseItemBinding
+
+/**
+ * Callback interface for license item clicks.
+ */
+fun interface OnLicenseClickListener {
+    fun onLicenseClick(license: LicenseContent)
+}
 
 class LicensyView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
-
-    var lvPrimaryColor = Color.parseColor("#121211")
-    var lvSecondaryColor = Color.parseColor("#444444")
-    var lvLinkColor = Color.parseColor("#1976D2")
+    var lvPrimaryColor = ContextCompat.getColor(context, R.color.licensy_primary)
+    var lvSecondaryColor = ContextCompat.getColor(context, R.color.licensy_secondary)
+    var lvLinkColor = ContextCompat.getColor(context, R.color.licensy_link)
 
     var lvTitleTextSize = 0f
 
-    var lvBackgroundColor = Color.WHITE
-    var lvBackgroundColorExpand = Color.parseColor("#f8f8f8")
+    var lvBackgroundColor = ContextCompat.getColor(context, R.color.licensy_background)
+    var lvBackgroundColorExpand = ContextCompat.getColor(context, R.color.licensy_background_expand)
 
     var lvOpenImage = R.drawable.ic_licensy_open
-    var imageTint = Color.parseColor("#444444")
+    var imageTint = ContextCompat.getColor(context, R.color.licensy_secondary)
 
-    var lvDividerColor = Color.parseColor("#e0e0e0")
+    var lvDividerColor = ContextCompat.getColor(context, R.color.licensy_divider)
 
+    var onLicenseClickListener: OnLicenseClickListener? = null
+
+    private val animationDuration = 200L
 
     init {
-
         initAttributes(context, attrs)
 
         val layoutManager = LinearLayoutManager(context)
@@ -87,6 +97,38 @@ class LicensyView @JvmOverloads constructor(
         (adapter as LicensesAdapter).updateList(listOfLicenses)
     }
 
+    private fun toggleViewWithAnimation(view: View, show: Boolean) {
+        if (show) {
+            view.visibility = View.VISIBLE
+            view.alpha = 0f
+            view.animate()
+                .alpha(1f)
+                .setDuration(animationDuration)
+                .start()
+        } else {
+            view.animate()
+                .alpha(0f)
+                .setDuration(animationDuration)
+                .withEndAction {
+                    view.visibility = View.GONE
+                }
+                .start()
+        }
+    }
+
+    private inner class LicenseDiffCallback(
+        private val oldList: List<LicenseContent>,
+        private val newList: List<LicenseContent>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize() = oldList.size
+        override fun getNewListSize() = newList.size
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].title == newList[newItemPosition].title
+        }
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
 
     private inner class LicensesAdapter(val listOfLicenses: MutableList<LicenseContent>) :
         Adapter<LicensesAdapter.LicenseViewHolder>() {
@@ -104,16 +146,18 @@ class LicensyView @JvmOverloads constructor(
             holder.binding.tvAuthorName.text = licenseContent.author
             holder.binding.copyright.visibility =
                 if (licenseContent.copyrightYear != null) VISIBLE else GONE
-            holder.binding.copyright.text = "© ${licenseContent.copyrightYear}"
+            holder.binding.copyright.text = "\u00A9 ${licenseContent.copyrightYear}"
 
             holder.binding.ivOpen.visibility = if (licenseContent.url != null) VISIBLE else GONE
             holder.binding.llRepoLink.visibility = GONE
             if (licenseContent.url != null) {
                 holder.binding.tvRepoUrl.text = licenseContent.url
                 holder.binding.ivOpen.setOnClickListener {
-                    holder.binding.llRepoLink.visibility =
-                        if (holder.binding.llRepoLink.visibility == VISIBLE) GONE else VISIBLE
-                    holder.binding.llLicenseDetails.visibility = GONE
+                    val isCurrentlyVisible = holder.binding.llRepoLink.visibility == VISIBLE
+                    toggleViewWithAnimation(holder.binding.llRepoLink, !isCurrentlyVisible)
+                    if (holder.binding.llLicenseDetails.visibility == VISIBLE) {
+                        toggleViewWithAnimation(holder.binding.llLicenseDetails, false)
+                    }
                 }
                 holder.binding.tvRepoUrl.setOnClickListener {
                     val intent = Intent(Intent.ACTION_VIEW, licenseContent.url.toUri())
@@ -121,7 +165,7 @@ class LicensyView @JvmOverloads constructor(
                 }
             }
 
-            val license = licenseContent.licenses
+            val license = licenseContent.license
             holder.binding.tvLicenseName.text = license.shortName
             holder.binding.tvLicenseFullName.text = license.fullName
             holder.binding.tvLicenseDescription.text = license.description
@@ -129,9 +173,12 @@ class LicensyView @JvmOverloads constructor(
 
             holder.binding.llLicenseDetails.visibility = GONE
             holder.binding.llRepoDetails.setOnClickListener {
-                holder.binding.llLicenseDetails.visibility =
-                    if (holder.binding.llLicenseDetails.visibility == VISIBLE) GONE else VISIBLE
-                holder.binding.llRepoLink.visibility = GONE
+                onLicenseClickListener?.onLicenseClick(licenseContent)
+                val isCurrentlyVisible = holder.binding.llLicenseDetails.visibility == VISIBLE
+                toggleViewWithAnimation(holder.binding.llLicenseDetails, !isCurrentlyVisible)
+                if (holder.binding.llRepoLink.visibility == VISIBLE) {
+                    toggleViewWithAnimation(holder.binding.llRepoLink, false)
+                }
             }
 
             holder.binding.tvLicenseUrl.setOnClickListener {
@@ -178,10 +225,12 @@ class LicensyView @JvmOverloads constructor(
             return listOfLicenses.size
         }
 
-        fun updateList(listOfLicenses: List<LicenseContent>) {
-            this.listOfLicenses.clear()
-            this.listOfLicenses.addAll(listOfLicenses)
-            notifyDataSetChanged()
+        fun updateList(newList: List<LicenseContent>) {
+            val diffCallback = LicenseDiffCallback(listOfLicenses.toList(), newList)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
+            listOfLicenses.clear()
+            listOfLicenses.addAll(newList)
+            diffResult.dispatchUpdatesTo(this)
         }
 
         inner class LicenseViewHolder(val binding: SingleLicenseItemBinding) :

@@ -1,7 +1,11 @@
 package com.rejowan.licensy
 
-enum class Licenses(shortName: String, fullName: String, description: String, url: String) {
-
+enum class Licenses(
+    override val shortName: String,
+    override val fullName: String,
+    override val description: String,
+    override val url: String
+) : LicenseType {
 
     APACHE_2_0(
         "Apache 2.0",
@@ -80,14 +84,37 @@ enum class Licenses(shortName: String, fullName: String, description: String, ur
         "The Unlicense",
         unlicense_short_description,
         "https://unlicense.org/"
-    );
-
-    val shortName = shortName
-    val fullName = fullName
-    val description = description
-    val url = url
-
-
+    ),
+    ISC(
+        "ISC",
+        "ISC License",
+        isc_short_description,
+        "https://opensource.org/licenses/ISC"
+    ),
+    WTFPL(
+        "WTFPL",
+        "Do What The F*ck You Want To Public License",
+        wtfpl_short_description,
+        "http://www.wtfpl.net/"
+    ),
+    ARTISTIC_2_0(
+        "Artistic 2.0",
+        "Artistic License 2.0",
+        artistic_2_0_short_description,
+        "https://opensource.org/licenses/Artistic-2.0"
+    ),
+    CDDL_1_0(
+        "CDDL 1.0",
+        "Common Development and Distribution License 1.0",
+        cddl_1_0_short_description,
+        "https://opensource.org/licenses/CDDL-1.0"
+    ),
+    ZLIB(
+        "zlib",
+        "zlib License",
+        zlib_short_description,
+        "https://opensource.org/licenses/Zlib"
+    )
 }
 
 private const val apache_short_description =
@@ -129,3 +156,17 @@ private const val mozilla_public_license_2_0_short_description =
 private const val unlicense_short_description =
     "This is free and unencumbered software released into the public domain.\n" + "\n" + "Anyone is free to copy, modify, publish, use, compile, sell, or\n" + "distribute this software, either in source code form or as a compiled\n" + "binary, for any purpose, commercial or non-commercial, and by any\n" + "means.\n" + "\n" + "In jurisdictions that recognize copyright laws, the author or authors\n" + "of this software dedicate any and all copyright interest in the\n" + "software to the public domain. We make this dedication for the benefit\n" + "of the public at large and to the detriment of our heirs and\n" + "successors. We intend this dedication to be an overt act of\n" + "relinquishment in perpetuity of all present and future rights to this\n" + "software under copyright law.\n" + "\n" + "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\n" + "EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\n" + "MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN\n" + "NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n" + "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n" + "FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER\n" + "DEALINGS IN THE SOFTWARE."
 
+private const val isc_short_description =
+    "Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.\n" + "\n" + "THE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE."
+
+private const val wtfpl_short_description =
+    "DO WHAT THE F*CK YOU WANT TO PUBLIC LICENSE\n" + "Version 2, December 2004\n" + "\n" + "Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.\n" + "\n" + "DO WHAT THE F*CK YOU WANT TO PUBLIC LICENSE\n" + "TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\n" + "\n" + "0. You just DO WHAT THE F*CK YOU WANT TO."
+
+private const val artistic_2_0_short_description =
+    "(Summary) The Artistic License 2.0 is a permissive open source license that allows you to use, modify, and distribute the software freely, provided you include proper attribution. Modified versions must be clearly marked as such, and distribution of modified source code must include the original license."
+
+private const val cddl_1_0_short_description =
+    "(Summary) The Common Development and Distribution License (CDDL) is a weak copyleft license. You can combine CDDL-licensed code with code under other licenses. Modifications to CDDL-licensed files must remain under CDDL and source code must be made available."
+
+private const val zlib_short_description =
+    "This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.\n" + "\n" + "Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:\n" + "\n" + "1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.\n" + "2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.\n" + "3. This notice may not be removed or altered from any source distribution."
