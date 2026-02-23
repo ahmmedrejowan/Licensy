@@ -98,6 +98,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, Credit::class.java))
         }
 
+        // Compose demo navigation
+        binding.composeCardView.setOnClickListener {
+            startActivity(Intent(this, ComposeActivity::class.java))
+        }
+
         // Set initial theme selection
         selectedThemeCard = binding.themeDefault
     }

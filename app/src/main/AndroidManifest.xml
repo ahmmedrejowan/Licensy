@@ -16,6 +16,10 @@
             android:name=".Credit"
             android:exported="false" />
         <activity
+            android:name=".ComposeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Licensy" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
