@@ -21,8 +21,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -44,7 +43,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":licensy"))
+    // Use Maven Central dependency to test published version
+//    implementation("com.rejowan:licensy:1.0")
+    implementation(project(":licensy"))  // Local development
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
