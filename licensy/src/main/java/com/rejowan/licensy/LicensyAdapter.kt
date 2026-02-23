@@ -153,6 +153,13 @@ internal class LicensyAdapter(
         animationDuration = duration
     }
 
+    /**
+     * Returns a copy of the current license list.
+     */
+    fun getLicenses(): List<LicenseContent> {
+        return licenses.toList()
+    }
+
     private class LicenseDiffCallback(
         private val oldList: List<LicenseContent>,
         private val newList: List<LicenseContent>

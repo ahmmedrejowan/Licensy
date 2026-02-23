@@ -1,8 +1,10 @@
 package com.rejowan.licensy
 
-import android.content.Intent
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.View
-import androidx.core.net.toUri
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.rejowan.licensy.databinding.LicenseItemCardBinding
@@ -15,6 +17,8 @@ import com.rejowan.licensy.databinding.LicenseItemStandardBinding
  */
 sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    protected val context get() = itemView.context
+
     abstract fun bind(
         license: LicenseContent,
         customization: LicensyCustomization,
@@ -22,6 +26,15 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
         onItemClick: ((LicenseContent) -> Unit)?,
         animationDuration: Long
     )
+
+    /**
+     * Sets text with underline style for links.
+     */
+    protected fun TextView.setUnderlinedText(text: String) {
+        val spannable = SpannableString(text)
+        spannable.setSpan(UnderlineSpan(), 0, text.length, 0)
+        this.text = spannable
+    }
 
     /**
      * Standard expandable list style ViewHolder.
@@ -38,8 +51,6 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             onItemClick: ((LicenseContent) -> Unit)?,
             animationDuration: Long
         ) {
-            val context = binding.root.context
-
             // Reset expanded states
             isLicenseDetailsVisible = false
             isRepoLinkVisible = false
@@ -50,12 +61,12 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.tvRepoName.text = license.title
             binding.tvAuthorName.text = license.author
             binding.copyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.copyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
+            binding.copyright.text = context.getString(R.string.licensy_copyright, license.copyrightYear)
 
             // URL handling
             binding.ivOpen.visibility = if (license.url != null) View.VISIBLE else View.GONE
             if (license.url != null) {
-                binding.tvRepoUrl.text = license.url
+                binding.tvRepoUrl.setUnderlinedText(license.url)
                 binding.ivOpen.setOnClickListener {
                     if (interactionMode == LicensyInteractionMode.EXPAND_INLINE) {
                         isRepoLinkVisible = !isRepoLinkVisible
@@ -67,8 +78,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
                     }
                 }
                 binding.tvRepoUrl.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, license.url.toUri())
-                    context.startActivity(intent)
+                    context.openUrl(license.url)
                 }
             }
 
@@ -77,7 +87,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.tvLicenseName.text = licenseType.shortName
             binding.tvLicenseFullName.text = licenseType.fullName
             binding.tvLicenseDescription.text = licenseType.description
-            binding.tvLicenseUrl.text = licenseType.url
+            binding.tvLicenseUrl.setUnderlinedText(licenseType.url)
 
             // Click handling based on interaction mode
             binding.llRepoDetails.setOnClickListener {
@@ -93,8 +103,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             }
 
             binding.tvLicenseUrl.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, licenseType.url.toUri())
-                context.startActivity(intent)
+                context.openUrl(licenseType.url)
             }
 
             // Apply customization
@@ -126,7 +135,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.divider3.setBackgroundColor(customization.lvDividerColor)
 
             if (customization.lvTitleTextSize != 0f) {
-                binding.tvRepoName.textSize = customization.lvTitleTextSize / binding.root.resources.displayMetrics.density
+                binding.tvRepoName.textSize = customization.lvTitleTextSize / context.resources.displayMetrics.density
             }
 
             binding.ivOpen.setImageResource(customization.lvOpenImage)
@@ -165,8 +174,6 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             onItemClick: ((LicenseContent) -> Unit)?,
             animationDuration: Long
         ) {
-            val context = binding.root.context
-
             binding.tvTitle.text = license.title
             binding.tvAuthor.text = license.author
             binding.tvLicenseBadge.text = license.license.shortName
@@ -174,10 +181,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             // URL icon
             binding.ivOpen.visibility = if (license.url != null) View.VISIBLE else View.GONE
             binding.ivOpen.setOnClickListener {
-                license.url?.let { url ->
-                    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-                    context.startActivity(intent)
-                }
+                license.url?.let { url -> context.openUrl(url) }
             }
 
             binding.llItemRoot.setOnClickListener {
@@ -185,6 +189,10 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             }
 
             // Apply customization
+            applyCustomization(customization)
+        }
+
+        private fun applyCustomization(customization: LicensyCustomization) {
             binding.tvTitle.setTextColor(customization.lvPrimaryColor)
             binding.tvAuthor.setTextColor(customization.lvSecondaryColor)
             binding.tvLicenseBadge.setTextColor(customization.lvSecondaryColor)
@@ -207,22 +215,17 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             onItemClick: ((LicenseContent) -> Unit)?,
             animationDuration: Long
         ) {
-            val context = binding.root.context
-
             binding.tvTitle.text = license.title
             binding.tvAuthor.text = license.author
             binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.tvCopyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
+            binding.tvCopyright.text = context.getString(R.string.licensy_copyright, license.copyrightYear)
             binding.tvLicenseBadge.text = license.license.shortName
             binding.tvLicenseName.text = license.license.fullName
 
             // URL icon
             binding.ivOpen.visibility = if (license.url != null) View.VISIBLE else View.GONE
             binding.ivOpen.setOnClickListener {
-                license.url?.let { url ->
-                    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-                    context.startActivity(intent)
-                }
+                license.url?.let { url -> context.openUrl(url) }
             }
 
             binding.cardRoot.setOnClickListener {
@@ -230,6 +233,10 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             }
 
             // Apply customization
+            applyCustomization(customization)
+        }
+
+        private fun applyCustomization(customization: LicensyCustomization) {
             binding.tvTitle.setTextColor(customization.lvPrimaryColor)
             binding.tvAuthor.setTextColor(customization.lvSecondaryColor)
             binding.tvCopyright.setTextColor(customization.lvSecondaryColor)
@@ -259,30 +266,27 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             onItemClick: ((LicenseContent) -> Unit)?,
             animationDuration: Long
         ) {
-            val context = binding.root.context
             val licenseType = license.license
 
             binding.tvTitle.text = license.title
             binding.tvAuthor.text = license.author
             binding.tvCopyright.visibility = if (license.copyrightYear != null) View.VISIBLE else View.GONE
-            binding.tvCopyright.text = binding.root.context.getString(R.string.licensy_copyright, license.copyrightYear)
+            binding.tvCopyright.text = context.getString(R.string.licensy_copyright, license.copyrightYear)
 
             binding.tvLicenseFullName.text = licenseType.fullName
             binding.tvLicenseDescription.text = licenseType.description
-            binding.tvLicenseUrl.text = licenseType.url
+            binding.tvLicenseUrl.setUnderlinedText(licenseType.url)
 
             // Repository link
             if (license.url != null) {
                 binding.llRepoLink.visibility = View.VISIBLE
-                binding.tvRepoUrl.text = license.url
+                binding.tvRepoUrl.setUnderlinedText(license.url)
                 binding.tvRepoUrl.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, license.url.toUri())
-                    context.startActivity(intent)
+                    context.openUrl(license.url)
                 }
                 binding.ivOpen.visibility = View.VISIBLE
                 binding.ivOpen.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, license.url.toUri())
-                    context.startActivity(intent)
+                    context.openUrl(license.url)
                 }
             } else {
                 binding.llRepoLink.visibility = View.GONE
@@ -290,8 +294,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             }
 
             binding.tvLicenseUrl.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, licenseType.url.toUri())
-                context.startActivity(intent)
+                context.openUrl(licenseType.url)
             }
 
             binding.llItemRoot.setOnClickListener {
@@ -299,6 +302,10 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             }
 
             // Apply customization
+            applyCustomization(customization)
+        }
+
+        private fun applyCustomization(customization: LicensyCustomization) {
             binding.tvTitle.setTextColor(customization.lvPrimaryColor)
             binding.tvCreatedBy.setTextColor(customization.lvSecondaryColor)
             binding.tvAuthor.setTextColor(customization.lvPrimaryColor)
@@ -315,7 +322,7 @@ sealed class LicensyViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(b
             binding.ivOpen.setColorFilter(customization.imageTint)
 
             if (customization.lvTitleTextSize != 0f) {
-                binding.tvTitle.textSize = customization.lvTitleTextSize / binding.root.resources.displayMetrics.density
+                binding.tvTitle.textSize = customization.lvTitleTextSize / context.resources.displayMetrics.density
             }
         }
     }

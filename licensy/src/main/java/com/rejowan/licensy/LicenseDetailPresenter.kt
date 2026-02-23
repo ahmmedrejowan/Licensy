@@ -2,14 +2,12 @@ package com.rejowan.licensy
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rejowan.licensy.databinding.BottomsheetLicenseDetailBinding
 import com.rejowan.licensy.databinding.DialogLicenseDetailBinding
@@ -97,8 +95,7 @@ object LicenseDetailPresenter {
         binding.tvLicenseUrl.text = licenseType.url
 
         binding.tvLicenseUrl.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, licenseType.url.toUri())
-            context.startActivity(intent)
+            context.openUrl(licenseType.url)
         }
 
         // Repository link
@@ -106,8 +103,7 @@ object LicenseDetailPresenter {
             binding.llRepoLink.visibility = View.VISIBLE
             binding.tvRepoUrl.text = license.url
             binding.tvRepoUrl.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, license.url.toUri())
-                context.startActivity(intent)
+                context.openUrl(license.url)
             }
         } else {
             binding.llRepoLink.visibility = View.GONE
@@ -147,8 +143,7 @@ object LicenseDetailPresenter {
         binding.tvLicenseUrl.text = licenseType.url
 
         binding.tvLicenseUrl.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, licenseType.url.toUri())
-            context.startActivity(intent)
+            context.openUrl(licenseType.url)
         }
 
         // Repository link
@@ -156,8 +151,7 @@ object LicenseDetailPresenter {
             binding.llRepoLink.visibility = View.VISIBLE
             binding.tvRepoUrl.text = license.url
             binding.tvRepoUrl.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, license.url.toUri())
-                context.startActivity(intent)
+                context.openUrl(license.url)
             }
         } else {
             binding.llRepoLink.visibility = View.GONE

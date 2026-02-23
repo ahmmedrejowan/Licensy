@@ -288,6 +288,20 @@ class LicensyView @JvmOverloads constructor(
     }
 
     /**
+     * Returns the current list of licenses.
+     */
+    fun getLicenses(): List<LicenseContent> {
+        return licensyAdapter.getLicenses()
+    }
+
+    /**
+     * Clears all licenses from the view.
+     */
+    fun clearLicenses() {
+        licensyAdapter.updateList(emptyList())
+    }
+
+    /**
      * Applies a [LicensyCustomization] object to configure all styling properties.
      */
     fun setCustomization(customization: LicensyCustomization) {
