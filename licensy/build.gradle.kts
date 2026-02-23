@@ -107,29 +107,25 @@ publishing {
         }
     }
 
+    // Publish to local staging directory, then upload manually to Central Portal
     repositories {
         maven {
-            name = "mavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME") ?: ""
-                password = findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD") ?: ""
-            }
+            name = "staging"
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
         }
     }
 }
 
-// Signing configuration - requires GPG key setup
-// Add to ~/.gradle/gradle.properties:
-// signing.keyId=YOUR_KEY_ID (last 8 chars)
-// signing.password=YOUR_KEY_PASSWORD
-// signing.secretKeyRingFile=/path/to/.gnupg/secring.gpg
-// ossrhUsername=YOUR_SONATYPE_USERNAME
-// ossrhPassword=YOUR_SONATYPE_PASSWORD
-
+// Signing
 the<SigningExtension>().apply {
-    setRequired {
-        gradle.taskGraph.hasTask("publishReleasePublicationToMavenCentralRepository")
-    }
     sign(the<PublishingExtension>().publications)
+}
+
+// Task to create a bundle zip for Central Portal upload
+tasks.register<Zip>("createCentralBundle") {
+    dependsOn("publishReleasePublicationToStagingRepository")
+
+    from(layout.buildDirectory.dir("staging-deploy"))
+    archiveFileName.set("licensy-1.0-bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("central-bundle"))
 }
