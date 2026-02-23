@@ -18,11 +18,12 @@
 
 ## Table of Contents
 
-- [What's New in 1.0](#whats-new-in-10)
+- [What's New in 1.1.0](#whats-new-in-110)
 - [Features](#features)
 - [Demo](#demo)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Jetpack Compose](#jetpack-compose)
 - [View Styles](#view-styles)
 - [Interaction Modes](#interaction-modes)
 - [Customization](#customization)
@@ -34,9 +35,16 @@
 - [Contribute](#contribute)
 - [License](#license)
 
-## What's New in 1.0
+## What's New in 1.1.0
 
-Version 1.0 is a complete revamp with powerful new features:
+| Feature | Description |
+|---------|-------------|
+| **Jetpack Compose Support** | New `licensy-compose` module with `LicensyList` composable |
+| **Improved Dialog/BottomSheet UI** | Cleaner, minimal design with action buttons |
+| **Button Color Customization** | Customize primary/secondary button colors |
+| **Minimal White Theme** | Default theme now uses clean white backgrounds |
+
+### Previous (1.0)
 
 | Feature | Description |
 |---------|-------------|
@@ -50,9 +58,10 @@ Version 1.0 is a complete revamp with powerful new features:
 ## Features
 
 - Lightweight and performant
+- **Supports both View system and Jetpack Compose**
 - 4 visual styles to match your app's design
 - 3 interaction modes for different UX needs
-- Highly customizable (colors, text sizes, icons)
+- Highly customizable (colors, text sizes, icons, buttons)
 - Built-in support for 15+ common licenses
 - Support for custom license definitions
 - Dark mode compatible
@@ -68,13 +77,30 @@ Version 1.0 is a complete revamp with powerful new features:
 
 ## Installation
 
-### Gradle (Kotlin DSL)
+### View System (XML)
 
 Add to your module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.rejowan:licensy:1.0")
+    implementation("com.rejowan:licensy:1.1.0")
+}
+```
+
+### Jetpack Compose
+
+```kotlin
+dependencies {
+    implementation("com.rejowan:licensy-compose:1.1.0")
+}
+```
+
+### Both (View + Compose)
+
+```kotlin
+dependencies {
+    implementation("com.rejowan:licensy:1.1.0")
+    implementation("com.rejowan:licensy-compose:1.1.0")
 }
 ```
 
@@ -82,7 +108,9 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'com.rejowan:licensy:1.0'
+    implementation 'com.rejowan:licensy:1.1.0'
+    // For Compose
+    implementation 'com.rejowan:licensy-compose:1.1.0'
 }
 ```
 
@@ -92,10 +120,11 @@ Add to `libs.versions.toml`:
 
 ```toml
 [versions]
-licensy = "1.0"
+licensy = "1.1.0"
 
 [libraries]
 licensy = { group = "com.rejowan", name = "licensy", version.ref = "licensy" }
+licensy-compose = { group = "com.rejowan", name = "licensy-compose", version.ref = "licensy" }
 ```
 
 Then in `build.gradle.kts`:
@@ -103,6 +132,8 @@ Then in `build.gradle.kts`:
 ```kotlin
 dependencies {
     implementation(libs.licensy)
+    // For Compose
+    implementation(libs.licensy.compose)
 }
 ```
 
@@ -190,6 +221,81 @@ List<LicenseContent> licenses = Arrays.asList(
 
 binding.licensyView.setLicenses(licenses);
 ```
+
+## Jetpack Compose
+
+### Basic Usage
+
+```kotlin
+import com.rejowan.licensy.compose.LicensyList
+import com.rejowan.licensy.LicenseContent
+import com.rejowan.licensy.Licenses
+
+@Composable
+fun LicenseScreen() {
+    val licenses = listOf(
+        LicenseContent(
+            title = "Retrofit",
+            author = "Square, Inc.",
+            license = Licenses.APACHE_2_0,
+            copyrightYear = "2013",
+            url = "https://github.com/square/retrofit"
+        ),
+        LicenseContent(
+            title = "Coil",
+            author = "Coil Contributors",
+            license = Licenses.APACHE_2_0,
+            url = "https://github.com/coil-kt/coil"
+        )
+    )
+
+    LicensyList(
+        licenses = licenses,
+        modifier = Modifier.fillMaxSize()
+    )
+}
+```
+
+### With Customization
+
+```kotlin
+import com.rejowan.licensy.compose.LicensyList
+import com.rejowan.licensy.compose.LicensyDefaults
+import com.rejowan.licensy.LicensyStyle
+import com.rejowan.licensy.LicensyInteractionMode
+
+@Composable
+fun CustomLicenseScreen() {
+    LicensyList(
+        licenses = licenses,
+        modifier = Modifier.fillMaxSize(),
+        style = LicensyStyle.CARD,
+        interactionMode = LicensyInteractionMode.BOTTOM_SHEET,
+        colors = LicensyDefaults.colors(
+            primaryColor = Color(0xFF1A1A1A),
+            secondaryColor = Color(0xFF666666),
+            linkColor = Color(0xFF1976D2),
+            backgroundColor = Color.White
+        ),
+        onUrlClick = { url ->
+            // Handle URL click
+        }
+    )
+}
+```
+
+### Compose Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `licenses` | `List<LicenseContent>` | List of licenses to display |
+| `modifier` | `Modifier` | Compose modifier |
+| `style` | `LicensyStyle` | Visual style (STANDARD, COMPACT, CARD, DETAILED) |
+| `interactionMode` | `LicensyInteractionMode` | How details are shown (EXPAND_INLINE, DIALOG, BOTTOM_SHEET) |
+| `colors` | `LicensyColors` | Color configuration |
+| `dimensions` | `LicensyDimensions` | Size configuration |
+| `onLicenseClick` | `((LicenseContent) -> Unit)?` | Callback when license is clicked |
+| `onUrlClick` | `((String) -> Unit)?` | Callback when URL is clicked |
 
 ## View Styles
 
@@ -316,10 +422,15 @@ val customization = LicensyCustomization(
     lvLinkColor = Color.parseColor("#2196F3"),
     lvTitleTextSize = 16f,
     lvBackgroundColor = Color.WHITE,
-    lvBackgroundColorExpand = Color.parseColor("#FAFAFA"),
+    lvBackgroundColorExpand = Color.WHITE,
     lvOpenImage = R.drawable.ic_open_link,
     imageTint = Color.parseColor("#666666"),
-    lvDividerColor = Color.parseColor("#E0E0E0")
+    lvDividerColor = Color.parseColor("#E0E0E0"),
+    // Button customization (new in 1.1.0)
+    lvButtonPrimaryBgColor = Color.parseColor("#1976D2"),
+    lvButtonPrimaryTextColor = Color.WHITE,
+    lvButtonSecondaryBgColor = Color.parseColor("#F5F5F5"),
+    lvButtonSecondaryTextColor = Color.parseColor("#1A1A1A")
 )
 
 licensyView.setCustomization(customization)
@@ -333,8 +444,10 @@ val darkCustomization = LicensyCustomization(
     lvSecondaryColor = Color.parseColor("#B0B0B0"),
     lvLinkColor = Color.parseColor("#64B5F6"),
     lvBackgroundColor = Color.parseColor("#121212"),
-    lvBackgroundColorExpand = Color.parseColor("#1E1E1E"),
-    lvDividerColor = Color.parseColor("#333333")
+    lvBackgroundColorExpand = Color.parseColor("#121212"),
+    lvDividerColor = Color.parseColor("#333333"),
+    lvButtonPrimaryBgColor = Color.parseColor("#64B5F6"),
+    lvButtonSecondaryBgColor = Color.parseColor("#1E1E1E")
 )
 
 licensyView.setCustomization(darkCustomization)
@@ -390,14 +503,14 @@ val license = LicenseContent(
 | `lv_interaction_mode` | enum | `expand_inline`, `dialog`, `bottom_sheet` | `expand_inline` |
 | `lv_card_corner_radius` | dimension | Corner radius for card style | `12dp` |
 | `lv_card_elevation` | dimension | Elevation for card style | `4dp` |
-| `lv_text_color_primary` | color | Title and name colors | `#121211` |
-| `lv_text_color_secondary` | color | Labels and descriptions | `#444444` |
-| `lv_text_color_link` | color | Clickable link color | `#0077cc` |
+| `lv_text_color_primary` | color | Title and name colors | `#1A1A1A` |
+| `lv_text_color_secondary` | color | Labels and descriptions | `#666666` |
+| `lv_text_color_link` | color | Clickable link color | `#1976D2` |
 | `lv_text_size_title` | dimension | Title text size | System default |
 | `lv_background_color` | color | Item background | `#FFFFFF` |
-| `lv_background_color_expand` | color | Expanded section background | `#F8F8F8` |
+| `lv_background_color_expand` | color | Expanded section background | `#FFFFFF` |
 | `lv_open_image` | reference | Link icon drawable | Built-in icon |
-| `lv_image_tint` | color | Icon tint color | `#444444` |
+| `lv_image_tint` | color | Icon tint color | `#666666` |
 | `lv_divider_color` | color | Divider line color | `#E0E0E0` |
 
 ## API Reference
@@ -427,8 +540,8 @@ data class LicenseContent(
 
 ### Breaking Changes
 
-| 0.x | 1.0 |
-|-----|-----|
+| 0.x | 1.0+ |
+|-----|------|
 | `LicensyDialog` class | Removed - use `interactionMode = DIALOG` |
 | `LicensyBottomSheet` class | Removed - use `interactionMode = BOTTOM_SHEET` |
 | `OnDialogListener` interface | Removed |
@@ -445,12 +558,12 @@ maven { url = uri("https://jitpack.io") }
 implementation("com.github.ahmmedrejowan:Licensy:0.2")
 ```
 
-**After (1.0):**
+**After (1.1.0):**
 ```kotlin
 // No repository needed - Maven Central is default
 
 // build.gradle.kts
-implementation("com.rejowan:licensy:1.0")
+implementation("com.rejowan:licensy:1.1.0")
 ```
 
 ### Code Migration
@@ -464,7 +577,7 @@ dialog.setCustomization(customization)
 dialog.show()
 ```
 
-**After (1.0) - Dialog Mode:**
+**After (1.1.0) - Dialog Mode:**
 ```kotlin
 // In your layout XML or programmatically add LicensyView
 licensyView.apply {
@@ -481,7 +594,7 @@ bottomSheet.setLicenses(licenses)
 bottomSheet.show()
 ```
 
-**After (1.0) - BottomSheet Mode:**
+**After (1.1.0) - BottomSheet Mode:**
 ```kotlin
 licensyView.apply {
     interactionMode = LicensyInteractionMode.BOTTOM_SHEET
@@ -505,6 +618,13 @@ licensyView.cardElevation = 8f
 licensyView.onLicenseClickListener = OnLicenseClickListener { license ->
     // Handle click
 }
+
+// Or use Jetpack Compose!
+LicensyList(
+    licenses = licenses,
+    style = LicensyStyle.CARD,
+    interactionMode = LicensyInteractionMode.DIALOG
+)
 ```
 
 ## Contribute
