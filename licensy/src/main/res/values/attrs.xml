@@ -22,6 +22,24 @@
         <!--Divider-->
         <attr name="lv_divider_color" format="color" />
 
+        <!--Style-->
+        <attr name="lv_style" format="enum">
+            <enum name="standard" value="0" />
+            <enum name="compact" value="1" />
+            <enum name="card" value="2" />
+            <enum name="detailed" value="3" />
+        </attr>
+
+        <!--Interaction Mode-->
+        <attr name="lv_interaction_mode" format="enum">
+            <enum name="expand_inline" value="0" />
+            <enum name="dialog" value="1" />
+            <enum name="bottom_sheet" value="2" />
+        </attr>
+
+        <!--Card Style Properties-->
+        <attr name="lv_card_corner_radius" format="dimension" />
+        <attr name="lv_card_elevation" format="dimension" />
 
     </declare-styleable>
 
