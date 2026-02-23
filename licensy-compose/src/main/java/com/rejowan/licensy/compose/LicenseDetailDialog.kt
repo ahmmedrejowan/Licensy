@@ -57,64 +57,48 @@ internal fun LicenseDetailDialog(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
-                // Header with close button
-                DialogHeader(
-                    title = license.title,
-                    colors = colors,
-                    onClose = onDismiss
-                )
+                // Header with title and close button
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = license.title,
+                        color = colors.primaryColor,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f)
+                    )
 
-                // Content
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = "Close",
+                            tint = colors.secondaryColor,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+
+                // Content (without title since we show it above)
                 LicenseDetailContent(
                     license = license,
                     colors = colors,
                     dimensions = dimensions,
                     onUrlClick = onUrlClick,
-                    showTitle = false
+                    showTitle = false,
+                    includePadding = false
                 )
             }
-        }
-    }
-}
-
-/**
- * Dialog header with title and close button.
- */
-@Composable
-private fun DialogHeader(
-    title: String,
-    colors: LicensyColors,
-    onClose: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(colors.backgroundColorExpanded)
-            .padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = title,
-            color = colors.primaryColor,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f)
-        )
-
-        IconButton(
-            onClick = onClose,
-            modifier = Modifier.size(36.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = "Close",
-                tint = colors.secondaryColor,
-                modifier = Modifier.size(18.dp)
-            )
         }
     }
 }
@@ -128,13 +112,20 @@ internal fun LicenseDetailContent(
     colors: LicensyColors,
     dimensions: LicensyDimensions,
     onUrlClick: ((String) -> Unit)?,
-    showTitle: Boolean = true
+    showTitle: Boolean = true,
+    includePadding: Boolean = true
 ) {
+    val padding = if (includePadding) {
+        Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+    } else {
+        Modifier
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .then(padding)
     ) {
         // Title (only for bottom sheet)
         if (showTitle) {
@@ -144,7 +135,10 @@ internal fun LicenseDetailContent(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+        } else {
+            // Small top spacing when no title (dialog already has header)
+            Spacer(modifier = Modifier.height(4.dp))
         }
 
         // Author & Copyright in one row
@@ -306,8 +300,8 @@ private fun ActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = if (isPrimary) colors.linkColor else colors.backgroundColorExpanded
-    val contentColor = if (isPrimary) Color.White else colors.primaryColor
+    val backgroundColor = if (isPrimary) colors.resolvedButtonPrimaryBackground else colors.resolvedButtonSecondaryBackground
+    val contentColor = if (isPrimary) colors.buttonPrimaryContent else colors.resolvedButtonSecondaryContent
 
     Surface(
         modifier = modifier

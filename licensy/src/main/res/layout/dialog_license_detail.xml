@@ -17,18 +17,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <!-- Header with title and close button -->
             <RelativeLayout
-                android:id="@+id/header_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/licensy_background_expand"
-                android:paddingStart="16dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="4dp"
-                android:paddingBottom="4dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -45,8 +40,8 @@
 
                 <ImageButton
                     android:id="@+id/btn_close"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -56,148 +51,138 @@
 
             </RelativeLayout>
 
-            <!-- Content -->
+            <!-- Author and Copyright row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp">
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <!-- Author and Copyright row -->
+                <TextView
+                    android:id="@+id/tv_author_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/licensy_secondary"
+                    android:textSize="13sp"
+                    tools:text="by Author Name" />
+
+                <TextView
+                    android:id="@+id/tv_copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/licensy_secondary"
+                    android:textSize="13sp"
+                    tools:text="© 2024" />
+
+            </LinearLayout>
+
+            <!-- License Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_license_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/licensy_background_expand"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-                    <TextView
-                        android:id="@+id/tv_author_line"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/licensy_secondary"
-                        android:textSize="13sp"
-                        tools:text="by Author Name" />
-
-                    <TextView
-                        android:id="@+id/tv_copyright"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/licensy_secondary"
-                        android:textSize="13sp"
-                        tools:text="© 2024" />
-
-                </LinearLayout>
-
-                <!-- License Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_license_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardBackgroundColor="@color/licensy_background_expand"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-
+                    <!-- Badge and License Name row -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <!-- Badge and License Name row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_license_badge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_license_badge"
-                                android:fontFamily="sans-serif-medium"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="4dp"
-                                android:textColor="@color/licensy_link"
-                                android:textSize="11sp"
-                                tools:text="MIT" />
-
-                            <TextView
-                                android:id="@+id/tv_license_full_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:ellipsize="end"
-                                android:fontFamily="sans-serif-medium"
-                                android:maxLines="1"
-                                android:textColor="@color/licensy_primary"
-                                android:textSize="13sp"
-                                tools:text="MIT License" />
-
-                        </LinearLayout>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_license_description"
-                            android:layout_width="match_parent"
+                            android:id="@+id/tv_license_badge"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:lineSpacingExtra="2dp"
-                            android:textColor="@color/licensy_secondary"
-                            android:textSize="12sp"
-                            tools:text="A permissive license that allows..." />
+                            android:background="@drawable/bg_license_badge"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:textColor="@color/licensy_link"
+                            android:textSize="11sp"
+                            tools:text="MIT" />
+
+                        <TextView
+                            android:id="@+id/tv_license_full_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:maxLines="1"
+                            android:textColor="@color/licensy_primary"
+                            android:textSize="13sp"
+                            tools:text="MIT License" />
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Action Buttons Row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_license"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/licensy_license"
-                        android:textSize="13sp"
-                        app:cornerRadius="10dp"
-                        app:icon="@drawable/ic_arrow_forward"
-                        app:iconGravity="end"
-                        app:iconSize="14dp" />
-
-                    <Space
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_repository"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/licensy_repository"
-                        android:textSize="13sp"
-                        android:visibility="gone"
-                        app:cornerRadius="10dp"
-                        app:icon="@drawable/ic_arrow_forward"
-                        app:iconGravity="end"
-                        app:iconSize="14dp"
-                        tools:visibility="visible" />
+                    <TextView
+                        android:id="@+id/tv_license_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/licensy_secondary"
+                        android:textSize="12sp"
+                        tools:text="A permissive license that allows..." />
 
                 </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Action Buttons Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_license"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/licensy_license"
+                    android:textSize="13sp"
+                    app:cornerRadius="10dp"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="end"
+                    app:iconSize="14dp" />
+
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_repository"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/licensy_repository"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    app:cornerRadius="10dp"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="end"
+                    app:iconSize="14dp"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 

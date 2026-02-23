@@ -17,6 +17,10 @@ import androidx.core.graphics.toColorInt
  * @param lvOpenImage Drawable resource for the open/link icon
  * @param imageTint Tint color for the open icon
  * @param lvDividerColor Color for divider lines
+ * @param lvButtonPrimaryBgColor Background color for primary action button (defaults to linkColor)
+ * @param lvButtonPrimaryTextColor Text color for primary action button
+ * @param lvButtonSecondaryBgColor Background color for secondary action button (defaults to backgroundColorExpand)
+ * @param lvButtonSecondaryTextColor Text color for secondary action button (defaults to primaryColor)
  */
 data class LicensyCustomization(
     @param:ColorInt val lvPrimaryColor: Int = "#121211".toColorInt(),
@@ -27,5 +31,21 @@ data class LicensyCustomization(
     @param:ColorInt val lvBackgroundColorExpand: Int = "#f8f8f8".toColorInt(),
     val lvOpenImage: Int = R.drawable.ic_licensy_open,
     @param:ColorInt val imageTint: Int = "#444444".toColorInt(),
-    @param:ColorInt val lvDividerColor: Int = "#e0e0e0".toColorInt()
-)
+    @param:ColorInt val lvDividerColor: Int = "#e0e0e0".toColorInt(),
+    @param:ColorInt val lvButtonPrimaryBgColor: Int = 0,
+    @param:ColorInt val lvButtonPrimaryTextColor: Int = Color.WHITE,
+    @param:ColorInt val lvButtonSecondaryBgColor: Int = 0,
+    @param:ColorInt val lvButtonSecondaryTextColor: Int = 0
+) {
+    /** Resolved primary button background (uses linkColor if not set) */
+    val resolvedButtonPrimaryBgColor: Int
+        get() = if (lvButtonPrimaryBgColor == 0) lvLinkColor else lvButtonPrimaryBgColor
+
+    /** Resolved secondary button background (uses backgroundColorExpand if not set) */
+    val resolvedButtonSecondaryBgColor: Int
+        get() = if (lvButtonSecondaryBgColor == 0) lvBackgroundColorExpand else lvButtonSecondaryBgColor
+
+    /** Resolved secondary button text color (uses primaryColor if not set) */
+    val resolvedButtonSecondaryTextColor: Int
+        get() = if (lvButtonSecondaryTextColor == 0) lvPrimaryColor else lvButtonSecondaryTextColor
+}

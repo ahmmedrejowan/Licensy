@@ -67,8 +67,24 @@ data class LicensyColors(
     val backgroundColor: Color,
     val backgroundColorExpanded: Color,
     val dividerColor: Color,
-    val iconTint: Color
-)
+    val iconTint: Color,
+    val buttonPrimaryBackground: Color = Color.Unspecified,
+    val buttonPrimaryContent: Color = Color.White,
+    val buttonSecondaryBackground: Color = Color.Unspecified,
+    val buttonSecondaryContent: Color = Color.Unspecified
+) {
+    /** Resolved primary button background (uses linkColor if not set) */
+    val resolvedButtonPrimaryBackground: Color
+        get() = if (buttonPrimaryBackground == Color.Unspecified) linkColor else buttonPrimaryBackground
+
+    /** Resolved secondary button background (uses backgroundColorExpanded if not set) */
+    val resolvedButtonSecondaryBackground: Color
+        get() = if (buttonSecondaryBackground == Color.Unspecified) backgroundColorExpanded else buttonSecondaryBackground
+
+    /** Resolved secondary button content color (uses primaryColor if not set) */
+    val resolvedButtonSecondaryContent: Color
+        get() = if (buttonSecondaryContent == Color.Unspecified) primaryColor else buttonSecondaryContent
+}
 
 /**
  * Dimension configuration for Licensy components.

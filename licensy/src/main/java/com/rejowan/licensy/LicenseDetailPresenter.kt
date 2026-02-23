@@ -138,7 +138,6 @@ object LicenseDetailPresenter {
 
         // Background colors
         binding.cardDialog.setCardBackgroundColor(customization.lvBackgroundColor)
-        binding.headerLayout.setBackgroundColor(customization.lvBackgroundColorExpand)
         binding.cardLicenseInfo.setCardBackgroundColor(customization.lvBackgroundColorExpand)
 
         // Close button tint
@@ -156,10 +155,12 @@ object LicenseDetailPresenter {
         binding.tvLicenseBadge.backgroundTintList = badgeBgColor
 
         // Button colors
-        binding.btnLicense.setBackgroundColor(customization.lvLinkColor)
-        binding.btnRepository.setBackgroundColor(customization.lvBackgroundColorExpand)
-        binding.btnRepository.setTextColor(customization.lvPrimaryColor)
-        binding.btnRepository.iconTint = ColorStateList.valueOf(customization.lvPrimaryColor)
+        binding.btnLicense.setBackgroundColor(customization.resolvedButtonPrimaryBgColor)
+        binding.btnLicense.setTextColor(customization.lvButtonPrimaryTextColor)
+        binding.btnLicense.iconTint = ColorStateList.valueOf(customization.lvButtonPrimaryTextColor)
+        binding.btnRepository.setBackgroundColor(customization.resolvedButtonSecondaryBgColor)
+        binding.btnRepository.setTextColor(customization.resolvedButtonSecondaryTextColor)
+        binding.btnRepository.iconTint = ColorStateList.valueOf(customization.resolvedButtonSecondaryTextColor)
     }
 
     private fun bindLicenseToBottomSheetView(
@@ -239,9 +240,11 @@ object LicenseDetailPresenter {
         binding.tvLicenseBadge.backgroundTintList = badgeBgColor
 
         // Button colors
-        binding.btnLicense.setBackgroundColor(customization.lvLinkColor)
-        binding.btnRepository.setBackgroundColor(customization.lvBackgroundColorExpand)
-        binding.btnRepository.setTextColor(customization.lvPrimaryColor)
-        binding.btnRepository.iconTint = ColorStateList.valueOf(customization.lvPrimaryColor)
+        binding.btnLicense.setBackgroundColor(customization.resolvedButtonPrimaryBgColor)
+        binding.btnLicense.setTextColor(customization.lvButtonPrimaryTextColor)
+        binding.btnLicense.iconTint = ColorStateList.valueOf(customization.lvButtonPrimaryTextColor)
+        binding.btnRepository.setBackgroundColor(customization.resolvedButtonSecondaryBgColor)
+        binding.btnRepository.setTextColor(customization.resolvedButtonSecondaryTextColor)
+        binding.btnRepository.iconTint = ColorStateList.valueOf(customization.resolvedButtonSecondaryTextColor)
     }
 }
